@@ -10,15 +10,18 @@ import time
 
 #adc = ADC(0)
 adc = ADC()
-apin = adc.channel(pin='P16')
+light = adc.channel(pin='P16')
+temp = adc.channel(pin='P13')
+
 #thing = adc.channel(pin='P9')
 #thing = apin()
 #pin = Pin('P1', mode=Pin.IN)
 
 while (1):
-    output = apin()
-    print(output)
-    time.sleep(0.2)
+    lightout = light()
+    tempout = temp()
+    print(lightout, tempout)
+    time.sleep(1)
 
 '''
 def getval(pin) :
