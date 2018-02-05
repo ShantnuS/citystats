@@ -1,6 +1,6 @@
 # main.py -- put your code here!
 print("Hello!")
-
+'''
 from machine import Pin
 from machine import UART
 from machine import ADC
@@ -22,7 +22,7 @@ while (1):
     tempout = temp()
     print(lightout, tempout)
     time.sleep(1)
-
+'''
 '''
 def getval(pin) :
     ms = [1]*300
@@ -110,7 +110,7 @@ import binascii
 lora = LoRa(mode=LoRa.LORAWAN)
 print(binascii.hexlify(lora.mac()).upper().decode('utf-8'))
 '''
-'''
+
 from network import LoRa
 import time
 import binascii
@@ -134,4 +134,3 @@ s = socket.socket(socket.AF_LORA, socket.SOCK_RAW)
 s.setsockopt(socket.SOL_LORA, socket.SO_DR, 5)
 s.setblocking(False)
 s.send(bytes([1,2,3,4,5,6,7,8,9,10]))
-'''
