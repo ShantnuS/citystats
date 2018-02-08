@@ -1,6 +1,5 @@
-package ttn;
+package temp;
 
-import java.net.URISyntaxException;
 import java.util.Arrays;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -17,7 +16,7 @@ public class TTNTest
     }
     
     public void init(String region, String appId, String accessKey) throws MqttException, Exception{
-        System.out.println( "Hello World!" );
+        System.out.println( "Attempting to connect..." );
 
         Client client = new Client(region, appId, accessKey);
                          
