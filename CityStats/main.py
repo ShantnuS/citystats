@@ -1,7 +1,7 @@
 # main.py -- put your code here!
 print("Hello there!")
 
-import myTTN as myTTN
+import myTTN.py as myTTN
 
 myTTN.getDeviceEUI
 

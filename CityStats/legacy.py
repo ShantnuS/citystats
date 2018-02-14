@@ -104,12 +104,12 @@ while (1):
     print(output)
     time.sleep(1)
     '''
-'''
+
 from network import LoRa
 import binascii
 lora = LoRa(mode=LoRa.LORAWAN)
 print(binascii.hexlify(lora.mac()).upper().decode('utf-8'))
-'''
+
 
 from network import LoRa
 import time
@@ -117,8 +117,8 @@ import binascii
 
 lora = LoRa(mode=LoRa.LORAWAN)
 
-app_eui = binascii.unhexlify('70B3D57ED0008034')
-app_key = binascii.unhexlify('47FA75005398C64CFAE2387C7A94E5E3')
+app_eui = binascii.unhexlify('70B3D57ED0008813')
+app_key = binascii.unhexlify('FDFDA4AB9CB96B494BEDC19591B6746F')
 
 lora.join(activation=LoRa.OTAA, auth=(app_eui, app_key), timeout=0)
 
