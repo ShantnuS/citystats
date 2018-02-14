@@ -114,6 +114,10 @@ print(binascii.hexlify(lora.mac()).upper().decode('utf-8'))
 from network import LoRa
 import time
 import binascii
+import pycom
+pycom.heartbeat(False)
+pycom.rgbled(0x7f0000) # red
+time.sleep(1)
 
 lora = LoRa(mode=LoRa.LORAWAN)
 
@@ -124,7 +128,10 @@ lora.join(activation=LoRa.OTAA, auth=(app_eui, app_key), timeout=0)
 
 # wait until the module has joined the network
 while not lora.has_joined():
-    time.sleep(2.5)
+    pycom.rgbled(0x7f7f00) # yellow
+    time.sleep(1)
+    pycom.heartbeat(False)
+    time.sleep(1)
     print('Not joined yet...')
 
 print('Network joined!')
@@ -134,3 +141,6 @@ s = socket.socket(socket.AF_LORA, socket.SOCK_RAW)
 s.setsockopt(socket.SOL_LORA, socket.SO_DR, 5)
 s.setblocking(False)
 s.send(bytes([1,2,3,4,5,6,7,8,9,10]))
+pycom.rgbled(0x007f00) # green
+time.sleep(2)
+pycom.heartbeat(False)
