@@ -3,6 +3,7 @@ package model;
 import java.net.URISyntaxException;
 import java.util.Arrays;
 
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.thethingsnetwork.data.common.Connection;
 import org.thethingsnetwork.data.common.messages.ActivationMessage;
@@ -19,10 +20,14 @@ public class TTNClient {
 
 	public TTNClient(String region, String appId, String accessKey) {
 		
+		//Changing keep alive time of the client 
+		MqttConnectOptions mcopts = new  MqttConnectOptions();
+		mcopts.setKeepAliveInterval(Integer.MAX_VALUE);
+		
 		controller = Controller.getInstance();
 		
 		try {
-			client = new Client(region, appId, accessKey);
+			client = new Client(region, appId, accessKey, mcopts);
 		} catch (URISyntaxException e) {
 			System.err.println("Could not create client!");
 			e.printStackTrace();
