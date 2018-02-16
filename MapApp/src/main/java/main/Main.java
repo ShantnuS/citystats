@@ -2,11 +2,8 @@ package main;
 
 
 import java.io.IOException;
-
 import javax.swing.SwingUtilities;
-
 import org.eclipse.paho.client.mqttv3.MqttException;
-
 import controller.Controller;
 import controller.RIKGetter;
 
