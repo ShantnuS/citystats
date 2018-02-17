@@ -1,5 +1,7 @@
 package controller;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 
 import model.TTNClient;
@@ -17,6 +19,15 @@ public class Controller {
 	
 	private Controller() {
 		System.out.println("Controller is ready!");
+		devices = new ArrayList<TTNDevice>();
+		
+		try {
+			this.createDevices();
+		} catch (Exception e) {
+			System.err.println("Could not create devices from file!");
+			e.printStackTrace();
+		}
+		
 	}
 	
 	private static Controller instance;
@@ -46,5 +57,39 @@ public class Controller {
 		this.region = region;
 		this.appId = appId;
 		this.accessKey = accessKey;
+	}
+	
+	public TTNDevice getDevice(String deviceID) {
+		TTNDevice device = null;
+		for(TTNDevice d:devices) {
+			if(d.getDeviceID() == deviceID) {
+				device = d;
+			}
+		}
+		return device;
+	}
+	
+	public void createDevices() throws Exception {
+		BufferedReader br = new BufferedReader(new FileReader("res\\devices.txt"));
+		String line = null;  
+		while ((line = br.readLine()) != null)  {  
+			String[] parts = line.split(" ");
+			String deviceID = parts[0];
+			String latitude = parts[1];
+			String longitude = parts[2];
+			TTNDevice device = new TTNDevice(deviceID, latitude, longitude);
+			this.addDevice(device);
+		} 
+		br.close();
+	}
+	
+	public void addDevice(TTNDevice device) {
+		devices.add(device);
+	}
+	
+	public void printAllDevices() {
+		for(TTNDevice d: devices) {
+			System.out.println(d.getDeviceID() +  "," +  d.getLatitude() + "," + d.getLongitude());
+		}
 	}
 }

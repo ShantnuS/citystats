@@ -10,7 +10,7 @@ public class TTNDevice {
 	ArrayList<TTNData> allData;
 	TTNData latestData;
 	
-	public TTNDevice(String deviceID, String longitude, String latitude) {
+	public TTNDevice(String deviceID, String latitude, String longitude) {
 		this.deviceID = deviceID;
 		this.longitude = longitude;
 		this.latitude = latitude;
