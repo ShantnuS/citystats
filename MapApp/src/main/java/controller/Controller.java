@@ -18,9 +18,7 @@ public class Controller {
 	ArrayList<TTNDevice> devices;
 	
 	private Controller() {
-		System.out.println("Controller is ready!");
 		devices = new ArrayList<TTNDevice>();
-		
 		try {
 			this.createDevices();
 		} catch (Exception e) {
@@ -28,6 +26,7 @@ public class Controller {
 			e.printStackTrace();
 		}
 		
+		System.out.println("Controller is ready!");
 	}
 	
 	private static Controller instance;
@@ -62,7 +61,7 @@ public class Controller {
 	public TTNDevice getDevice(String deviceID) {
 		TTNDevice device = null;
 		for(TTNDevice d:devices) {
-			if(d.getDeviceID() == deviceID) {
+			if(d.getDeviceID().equals(deviceID)) {
 				device = d;
 			}
 		}
@@ -90,6 +89,13 @@ public class Controller {
 	public void printAllDevices() {
 		for(TTNDevice d: devices) {
 			System.out.println(d.getDeviceID() +  "," +  d.getLatitude() + "," + d.getLongitude());
+		}
+	}
+	
+	public void printLatestData() {
+		for(TTNDevice d: devices) {
+			System.out.println(d);
+			System.out.println(d.getLatestData().getPayload());
 		}
 	}
 }

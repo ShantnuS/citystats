@@ -6,6 +6,7 @@ import java.util.Arrays;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.thethingsnetwork.data.common.Connection;
+import org.thethingsnetwork.data.common.Metadata;
 import org.thethingsnetwork.data.common.messages.ActivationMessage;
 import org.thethingsnetwork.data.common.messages.DataMessage;
 import org.thethingsnetwork.data.common.messages.UplinkMessage;
@@ -52,16 +53,15 @@ public class TTNClient {
 	public static void passMessage(String devId, DataMessage data) {
 		UplinkMessage message = (UplinkMessage) data;
 		
-    	System.out.println(message.getAppId());
-    	System.out.println(message.getDevId());
+    	String appID = message.getAppId();
+    	String devID = message.getDevId();
+    	String payload = Arrays.toString(message.getPayloadRaw());
+    	Metadata metaData = message.getMetadata();
     	
-    	byte[] payload = message.getPayloadRaw();
-    	System.out.println(Arrays.toString(payload));
-    	
-    	System.out.println(message.getMetadata().getTime());
-    	
-    	System.out.println(data);
-    	System.out.println(message);
+    	TTNData myData = new TTNData(appID, devID, payload, metaData);
+		myData.setDevice(Controller.getInstance().getDevice(devID));
+		myData.getDevice().setLatestData(myData);
+		System.out.println(payload);
 	}
 	
 	public static void passConnection(Connection connection) {
@@ -69,8 +69,7 @@ public class TTNClient {
 	}
 	
 	public static void passError(Throwable error) {
-		String errorMsg = error.getMessage();
-		System.out.println(errorMsg);
+		System.err.println(error);
 	}
 	
 	public static void passActivation(String devId, ActivationMessage data) {
