@@ -1,6 +1,7 @@
 package controller;
 
 import model.TTNClient;
+import view.MainFrame;
 
 public class Controller {
 
@@ -8,6 +9,7 @@ public class Controller {
 	String region;
 	String appId;
 	String accessKey;
+	MainFrame frame;
 	
 	private Controller() {
 		System.out.println("Controller is ready!");
@@ -20,6 +22,10 @@ public class Controller {
 			instance = new Controller();
 		}
 		return instance;
+	}
+	
+	public void startUI() {
+		frame = new MainFrame();
 	}
 	
 	public void startClient() {
