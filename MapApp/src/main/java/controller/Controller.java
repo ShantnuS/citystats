@@ -1,6 +1,9 @@
 package controller;
 
+import java.util.ArrayList;
+
 import model.TTNClient;
+import model.TTNDevice;
 import view.MainFrame;
 
 public class Controller {
@@ -10,6 +13,7 @@ public class Controller {
 	String appId;
 	String accessKey;
 	MainFrame frame;
+	ArrayList<TTNDevice> devices;
 	
 	private Controller() {
 		System.out.println("Controller is ready!");
