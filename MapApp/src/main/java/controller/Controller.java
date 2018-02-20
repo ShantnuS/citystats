@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 
+import com.teamdev.jxmaps.LatLng;
+
 import model.TTNClient;
 import model.TTNDevice;
 import view.MainFrame;
@@ -97,5 +99,12 @@ public class Controller {
 			System.out.println(d);
 			System.out.println(d.getLatestData().getPayload());
 		}
+	}
+	
+	public LatLng getInitLatLng(){
+		String lat = devices.get(0).getLatitude();
+		String lng = devices.get(0).getLongitude();
+		
+		return new LatLng(Double.parseDouble(lat),Double.parseDouble(lng));
 	}
 }

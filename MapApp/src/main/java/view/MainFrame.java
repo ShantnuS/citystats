@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -13,13 +15,40 @@ public class MainFrame extends JFrame {
 	Controller controller; 
 	JPanel topPanel;
 	JTabbedPane tabs; 
+	MapPanel mapPanel;
+	JPanel dataPanel;
 	
 	
 	public MainFrame() {
 		controller = Controller.getInstance();
 		
-		//Make frame here
+		this.setTitle("MapApp - CityStats");
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setSize(1920/2,1080/2);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		this.setLayout(new BorderLayout());
+		this.init();
 	}
 	
+	public void init(){
+		//Top status panel
+		topPanel = new JPanel();
+		topPanel.setBackground(Color.GREEN);
+		
+		JTabbedPane tabbedPane = new JTabbedPane();
+		mapPanel = new MapPanel();
+		dataPanel = new JPanel();
+		dataPanel.setBackground(Color.black);
+		tabbedPane.add("Map", mapPanel);
+		tabbedPane.add("Data", dataPanel);
+		
+		this.add(topPanel, BorderLayout.NORTH);
+		this.add(tabbedPane, BorderLayout.CENTER);
+		this.setVisible(true);
+		this.repaint();
+	}
 	
+	public MapPanel getMapPanel(){
+		return this.mapPanel;
+	}
 }
