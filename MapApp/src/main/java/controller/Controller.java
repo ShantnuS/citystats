@@ -101,10 +101,23 @@ public class Controller {
 		}
 	}
 	
+	//Get LatLng of the first device in the arraylist (Just to centre the map)
 	public LatLng getInitLatLng(){
-		String lat = devices.get(0).getLatitude();
-		String lng = devices.get(0).getLongitude();
+		return this.getLatLng(devices.get(0));
+	}
+	
+	//Get the LatLng object for a device
+	public LatLng getLatLng(TTNDevice device){
+		String lat = device.getLatitude();
+		String lng = device.getLongitude();
 		
 		return new LatLng(Double.parseDouble(lat),Double.parseDouble(lng));
+	}
+	
+	//Create the initial markers on the map
+	public void initMarkers(){
+		for(TTNDevice d: devices){
+			frame.getMapPanel().createMarker(this.getLatLng(d), d);
+		}
 	}
 }

@@ -14,6 +14,7 @@ import com.teamdev.jxmaps.MouseEvent;
 import com.teamdev.jxmaps.swing.MapView;
 
 import controller.Controller;
+import model.TTNDevice;
 
 public class MapPanel extends MapView {
 
@@ -27,28 +28,42 @@ public class MapPanel extends MapView {
             public void onMapReady(MapStatus status) {
                 // Check if the map is loaded correctly
                 if (status == MapStatus.MAP_STATUS_OK) {
-                    // Getting the associated map object
                     map = getMap();
-                    // Creating a map options object
+                    
+                    //create controls
                     MapOptions options = new MapOptions();
-                    // Creating a map type control options object
                     MapTypeControlOptions controlOptions = new MapTypeControlOptions();
-                    // Changing position of the map type control
                     controlOptions.setPosition(ControlPosition.TOP_RIGHT);
-                    // Setting map type control options
                     options.setMapTypeControlOptions(controlOptions);
-                    // Setting map options
                     map.setOptions(options);
-                    // Setting the map center
+                    
+                    
+                    //ready the map
                     map.setCenter(Controller.getInstance().getInitLatLng());
-                    // Setting initial zoom value
-                    map.setZoom(15.0);                  
+                    map.setZoom(15.0);    
+                    Controller.getInstance().initMarkers();
                 }
             }
         });
     }
 	
-	public Map getMap(){
-		return this.map;
+	public void createMarker(LatLng latlng, TTNDevice device){
+        Marker marker = new Marker(map);
+        marker.setPosition(latlng);
+        final InfoWindow infoWindow = new InfoWindow(map);
+        infoWindow.setContent(device.getDeviceID());
+        infoWindow.open(map, marker);
+        
+        
+        marker.addEventListener("click", new MapMouseEvent() {
+            @Override
+            public void onEvent(MouseEvent mouseEvent) {
+                // Removing marker from the map
+            	if(device.getLatestData()!= null)
+            		infoWindow.setContent(device.getDeviceID() + ": " + device.getLatestData().getPayload());
+            	infoWindow.open(map, marker);
+            }
+        });
+        
 	}
 }
