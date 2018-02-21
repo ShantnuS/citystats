@@ -1,13 +1,16 @@
 # citystats
 Using LoPy IoT devices to measure a city's stats
 
-## LoPyCode ## 
+## Parts ## 
+There are three main parts of this project
+
+### CityStats ### 
 This is the micro-python code that is uploaded to the LoPy device.
 
-## MapApp ## 
+### MapApp ### 
 This is the Google Maps Java application used to view data from the devices. 
 
-## DataServer ##
+### DataServer ###
 This is the python code that stores all received data onto a server. 
 
 ## Libraries ## 
