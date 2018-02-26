@@ -1,0 +1,2 @@
+Switch to ABP 
+or use OTAA and cache credential 
