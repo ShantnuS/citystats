@@ -1,5 +1,8 @@
 # citystats
-Using LoPy IoT devices to measure a city's stats
+Using LoPy IoT devices to measure a City's conditions.  
+  
+The general data flow of the system is as follows:
+![data flow diagram](resources/diagrams/data_flow.png "wow")  
 
 ## Parts ## 
 There are three main parts of this project
