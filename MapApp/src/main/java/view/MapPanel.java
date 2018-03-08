@@ -53,7 +53,8 @@ public class MapPanel extends MapView {
         final InfoWindow infoWindow = new InfoWindow(map);
         infoWindow.setContent(device.getDeviceID());
         infoWindow.open(map, marker);
-        
+        device.setMarker(marker);
+        device.setInfoWindow(infoWindow);
         
         marker.addEventListener("click", new MapMouseEvent() {
             @Override
@@ -65,5 +66,11 @@ public class MapPanel extends MapView {
             }
         });
         
+	}
+	
+	public void updateMarker(TTNDevice device){
+		if(device.getLatestData()!= null)
+    		device.getInfoWindow().setContent(device.getDeviceID() + ": " + device.getLatestData().getPayload());
+		device.getInfoWindow().open(map, device.getMarker());
 	}
 }

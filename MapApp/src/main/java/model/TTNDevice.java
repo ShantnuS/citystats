@@ -2,6 +2,9 @@ package model;
 
 import java.util.ArrayList;
 
+import com.teamdev.jxmaps.InfoWindow;
+import com.teamdev.jxmaps.Marker;
+
 public class TTNDevice {
 
 	String deviceID;
@@ -9,12 +12,22 @@ public class TTNDevice {
 	String latitude;
 	ArrayList<TTNData> allData;
 	TTNData latestData;
+	Marker marker;
+	InfoWindow infoWindow;
 	
 	public TTNDevice(String deviceID, String latitude, String longitude) {
 		this.deviceID = deviceID;
 		this.longitude = longitude;
 		this.latitude = latitude;
 		allData = new ArrayList<TTNData>();
+	}
+	
+	public Marker getMarker(){
+		return this.marker;
+	}
+	
+	public InfoWindow getInfoWindow(){
+		return this.infoWindow;
 	}
 
 	public String getDeviceID() {
@@ -56,6 +69,14 @@ public class TTNDevice {
 	
 	public ArrayList<TTNData> getAllData(){
 		return this.allData;
+	}
+	
+	public void setMarker(Marker marker){
+		this.marker = marker; 
+	}
+	
+	public void setInfoWindow(InfoWindow infoWindow){
+		this.infoWindow = infoWindow;
 	}
 	
 }
