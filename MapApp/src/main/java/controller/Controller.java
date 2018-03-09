@@ -114,6 +114,11 @@ public class Controller {
 		return new LatLng(Double.parseDouble(lat),Double.parseDouble(lng));
 	}
 	
+	//Update marker upon new data receiving
+	public void updateMarker(TTNDevice device){
+		frame.getMapPanel().updateMarker(device);
+	}
+	
 	//Create the initial markers on the map
 	public void initMarkers(){
 		for(TTNDevice d: devices){

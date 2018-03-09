@@ -60,7 +60,9 @@ public class TTNClient {
     	
     	TTNData myData = new TTNData(appID, devID, payload, metaData);
 		myData.setDevice(Controller.getInstance().getDevice(devID));
-		myData.getDevice().setLatestData(myData);
+		TTNDevice device = myData.getDevice();
+		device.setLatestData(myData);
+		Controller.getInstance().updateMarker(device);
 		System.out.println(payload);
 	}
 	

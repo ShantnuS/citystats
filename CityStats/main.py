@@ -4,6 +4,7 @@ from network import LoRa
 import time
 import binascii
 import pycom
+import struct
 
 #Functions to make it easier to redo certain things############################
 def getDeviceEUI():
@@ -12,7 +13,7 @@ def getDeviceEUI():
     print(result)
     return result
 
-def connect(myEUI,myKey):
+def connectOTAA(myEUI,myKey):
     lora = LoRa(mode=LoRa.LORAWAN)
 
     lora.join(activation=LoRa.OTAA, auth=(myEUI, myKey), timeout=0)
@@ -27,6 +28,18 @@ def connect(myEUI,myKey):
 
     print('Connection: connected!')
 
+def connectABP(devAddress,netSessKey,appSessKey):
+    lora = LoRa(mode=LoRa.LORAWAN)
+
+    dev_addr = struct.unpack(">l", devAddress)[0]
+
+    lora.join(activation=LoRa.ABP, auth=(dev_addr, netSessKey, appSessKey))
+    # The loop below is not even needed as connection is instant
+    # However since it has no impact I have left it.
+    while not lora.has_joined():
+        time.sleep(1)
+        print('Not joined yet...')
+    print('Connection: connected!')
 
 def sendData():
     import socket
@@ -49,5 +62,11 @@ time.sleep(1)
 app_eui = binascii.unhexlify('70B3D57ED0008813')
 app_key = binascii.unhexlify('FDFDA4AB9CB96B494BEDC19591B6746F')
 
-connect(app_eui, app_key)
+dAdd = binascii.unhexlify('26012338')
+netSKey = binascii.unhexlify('B6E642E16BE7FB9CAEC868D34912A918')
+appSKey = binascii.unhexlify('0C8FB72F0851D3DEE8BD07095B701A30')
+
+
+connectOTAA(app_eui, app_key)
+#connectABP(dAdd,netSKey,appSKey)
 sendData()

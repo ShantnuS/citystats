@@ -1,6 +1,9 @@
 package view;
 
+import java.io.File;
+
 import com.teamdev.jxmaps.ControlPosition;
+import com.teamdev.jxmaps.Icon;
 import com.teamdev.jxmaps.InfoWindow;
 import com.teamdev.jxmaps.LatLng;
 import com.teamdev.jxmaps.Map;
@@ -11,6 +14,7 @@ import com.teamdev.jxmaps.MapStatus;
 import com.teamdev.jxmaps.MapTypeControlOptions;
 import com.teamdev.jxmaps.Marker;
 import com.teamdev.jxmaps.MouseEvent;
+import com.teamdev.jxmaps.Size;
 import com.teamdev.jxmaps.swing.MapView;
 
 import controller.Controller;
@@ -49,11 +53,17 @@ public class MapPanel extends MapView {
 	
 	public void createMarker(LatLng latlng, TTNDevice device){
         Marker marker = new Marker(map);
+/*        Icon icon = new Icon();
+        icon.loadFromFile(new File("res//assets//sun.png"));
+        icon.setScaledSize(new Size(25,25));
+        //icon.setSize(new Size(25,25));
+        marker.setIcon(icon);*/
         marker.setPosition(latlng);
         final InfoWindow infoWindow = new InfoWindow(map);
         infoWindow.setContent(device.getDeviceID());
-        infoWindow.open(map, marker);
-        
+        //infoWindow.open(map, marker);
+        device.setMarker(marker);
+        device.setInfoWindow(infoWindow);
         
         marker.addEventListener("click", new MapMouseEvent() {
             @Override
@@ -65,5 +75,11 @@ public class MapPanel extends MapView {
             }
         });
         
+	}
+	
+	public void updateMarker(TTNDevice device){
+		if(device.getLatestData()!= null)
+    		device.getInfoWindow().setContent(device.getDeviceID() + ": " + device.getLatestData().getPayload());
+		device.getInfoWindow().open(map, device.getMarker());
 	}
 }
