@@ -1,2 +1,17 @@
-Switch to ABP 
-or use OTAA and cache credential 
+protocol buffers 
+- cbor
+- google protocol buffers
+self describing data
+- ttn implementations 
+OTAA vs ABP 
+- ABP on own base? 
+- use OTAA and cache credential 
+Power and Times 
+- graphs 
+Improve network diagram
+- new diagram for ttn nodes
+SQL server
+- just make it in java
+TTN lecture talks 
+- lorawan
+
