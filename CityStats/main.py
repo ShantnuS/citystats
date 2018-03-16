@@ -5,6 +5,7 @@ import time
 import binascii
 import pycom
 import struct
+import socket
 
 #Functions to make it easier to redo certain things############################
 def getDeviceEUI():
@@ -41,12 +42,11 @@ def connectABP(devAddress,netSessKey,appSessKey):
         print('Not joined yet...')
     print('Connection: connected!')
 
-def sendData():
-    import socket
+def sendData(data):
     s = socket.socket(socket.AF_LORA, socket.SOCK_RAW)
     s.setsockopt(socket.SOL_LORA, socket.SO_DR, 5)
     s.setblocking(False)
-    s.send(bytes([1,2,3,4,5,6,7,8,9,10]))
+    s.send(bytes(data))
     #Set LED to green at the end
     pycom.rgbled(0x007f00) # green
     time.sleep(2)
@@ -69,4 +69,5 @@ appSKey = binascii.unhexlify('0C8FB72F0851D3DEE8BD07095B701A30')
 
 connectOTAA(app_eui, app_key)
 #connectABP(dAdd,netSKey,appSKey)
-sendData()
+data = [1,2,3,4,5,6,7,8,9,10]
+sendData(data)
