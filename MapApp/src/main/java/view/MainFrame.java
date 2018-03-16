@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import com.teamdev.jxmaps.LatLng;
+
 import controller.Controller;
 
 public class MainFrame extends JFrame {
@@ -48,6 +50,7 @@ public class MainFrame extends JFrame {
 		this.add(statusPanel, BorderLayout.NORTH);
 		
 		this.addWindowListener(new CSWindowListener());
+		this.addComponentListener(new CSComponentListener());
 		
 		this.setVisible(true);
 		this.repaint();

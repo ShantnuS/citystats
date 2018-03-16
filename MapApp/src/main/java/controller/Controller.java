@@ -21,6 +21,7 @@ public class Controller {
 	HashMap<String, TTNDevice> devices;
 	boolean status; //true if connected
 	String[] variables = {"Temperature", "Light", "Humidity", "Pressure"};
+	String currentVariable;
 	
 	private Controller() {
 		devices = new HashMap<String, TTNDevice>();
@@ -149,5 +150,10 @@ public class Controller {
 	
 	public String[] getVariables(){
 		return this.variables;
+	}
+	
+	public void setCurrentVariable(String variable){
+		this.currentVariable = variable;
+		System.out.println(currentVariable);
 	}
 }
