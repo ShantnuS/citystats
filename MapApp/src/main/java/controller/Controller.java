@@ -20,6 +20,7 @@ public class Controller {
 	MainFrame frame;
 	HashMap<String, TTNDevice> devices;
 	boolean status; //true if connected
+	String[] variables = {"Temperature", "Light", "Humidity", "Pressure"};
 	
 	private Controller() {
 		devices = new HashMap<String, TTNDevice>();
@@ -144,5 +145,9 @@ public class Controller {
 	
 	public boolean getStatus(){
 		return this.status;
+	}
+	
+	public String[] getVariables(){
+		return this.variables;
 	}
 }

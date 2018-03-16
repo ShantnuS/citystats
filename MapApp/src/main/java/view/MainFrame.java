@@ -44,8 +44,8 @@ public class MainFrame extends JFrame {
 		tabbedPane.add("Map", mapPanel);
 		tabbedPane.add("Data", dataPanel);
 		
-		this.add(statusPanel, BorderLayout.NORTH);
 		this.add(tabbedPane, BorderLayout.CENTER);
+		this.add(statusPanel, BorderLayout.NORTH);
 		
 		this.addWindowListener(new CSWindowListener());
 		
