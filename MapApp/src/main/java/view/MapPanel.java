@@ -74,7 +74,6 @@ public class MapPanel extends MapView {
             	infoWindow.open(map, marker);
             }
         });
-        
 	}
 	
 	public void updateMarker(TTNDevice device){

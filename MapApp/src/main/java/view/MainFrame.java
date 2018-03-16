@@ -2,6 +2,9 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -13,7 +16,7 @@ public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	Controller controller; 
-	JPanel topPanel;
+	StatusPanel statusPanel;
 	JTabbedPane tabs; 
 	MapPanel mapPanel;
 	JPanel dataPanel;
@@ -24,7 +27,7 @@ public class MainFrame extends JFrame {
 		
 		this.setTitle("MapApp - CityStats");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(1920/2,1080/2);
+		this.setSize(1920/2, 1080/2);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setLayout(new BorderLayout());
 		this.init();
@@ -32,8 +35,7 @@ public class MainFrame extends JFrame {
 	
 	public void init(){
 		//Top status panel
-		topPanel = new JPanel();
-		topPanel.setBackground(Color.GREEN);
+		statusPanel = new StatusPanel();
 		
 		JTabbedPane tabbedPane = new JTabbedPane();
 		mapPanel = new MapPanel();
@@ -42,13 +44,20 @@ public class MainFrame extends JFrame {
 		tabbedPane.add("Map", mapPanel);
 		tabbedPane.add("Data", dataPanel);
 		
-		this.add(topPanel, BorderLayout.NORTH);
+		this.add(statusPanel, BorderLayout.NORTH);
 		this.add(tabbedPane, BorderLayout.CENTER);
+		
+		this.addWindowListener(new CSWindowListener());
+		
 		this.setVisible(true);
 		this.repaint();
 	}
 	
 	public MapPanel getMapPanel(){
 		return this.mapPanel;
+	}
+	
+	public StatusPanel getStatusPanel(){
+		return this.statusPanel;
 	}
 }

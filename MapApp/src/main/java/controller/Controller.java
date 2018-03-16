@@ -3,6 +3,7 @@ package controller;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.teamdev.jxmaps.LatLng;
 
@@ -17,10 +18,12 @@ public class Controller {
 	String appId;
 	String accessKey;
 	MainFrame frame;
-	ArrayList<TTNDevice> devices;
+	HashMap<String, TTNDevice> devices;
+	boolean status; //true if connected
 	
 	private Controller() {
-		devices = new ArrayList<TTNDevice>();
+		devices = new HashMap<String, TTNDevice>();
+		status = false;
 		try {
 			this.createDevices();
 		} catch (Exception e) {
@@ -61,13 +64,7 @@ public class Controller {
 	}
 	
 	public TTNDevice getDevice(String deviceID) {
-		TTNDevice device = null;
-		for(TTNDevice d:devices) {
-			if(d.getDeviceID().equals(deviceID)) {
-				device = d;
-			}
-		}
-		return device;
+		return devices.get(deviceID);
 	}
 	
 	public void createDevices() throws Exception {
@@ -85,17 +82,22 @@ public class Controller {
 	}
 	
 	public void addDevice(TTNDevice device) {
-		devices.add(device);
+		String deviceID = device.getDeviceID();
+		devices.put(deviceID, device);
 	}
 	
 	public void printAllDevices() {
-		for(TTNDevice d: devices) {
+		TTNDevice d;
+		for(String id: devices.keySet()){
+			d = devices.get(id);
 			System.out.println(d.getDeviceID() +  "," +  d.getLatitude() + "," + d.getLongitude());
 		}
 	}
 	
 	public void printLatestData() {
-		for(TTNDevice d: devices) {
+		TTNDevice d;
+		for(String id: devices.keySet()){
+			d = devices.get(id);
 			System.out.println(d);
 			System.out.println(d.getLatestData().getPayload());
 		}
@@ -103,7 +105,7 @@ public class Controller {
 	
 	//Get LatLng of the first device in the arraylist (Just to centre the map)
 	public LatLng getInitLatLng(){
-		return this.getLatLng(devices.get(0));
+		return this.getLatLng(devices.get("lopy1"));
 	}
 	
 	//Get the LatLng object for a device
@@ -121,8 +123,26 @@ public class Controller {
 	
 	//Create the initial markers on the map
 	public void initMarkers(){
-		for(TTNDevice d: devices){
+		TTNDevice d;
+		for(String id: devices.keySet()){
+			d = devices.get(id);
 			frame.getMapPanel().createMarker(this.getLatLng(d), d);
 		}
+	}
+	
+	public MainFrame getMainFrame(){
+		return this.frame;
+	}
+	
+	public void setStatus(boolean status){
+		this.status = status;
+		if(frame != null){
+			frame.getStatusPanel().setStatus(status);
+			frame.repaint();
+		}
+	}
+	
+	public boolean getStatus(){
+		return this.status;
 	}
 }

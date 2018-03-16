@@ -68,10 +68,12 @@ public class TTNClient {
 	
 	public static void passConnection(Connection connection) {
 		System.out.println("Connected!");
+		Controller.getInstance().setStatus(true);
 	}
 	
 	public static void passError(Throwable error) {
 		System.err.println(error);
+		Controller.getInstance().setStatus(false);
 	}
 	
 	public static void passActivation(String devId, ActivationMessage data) {
