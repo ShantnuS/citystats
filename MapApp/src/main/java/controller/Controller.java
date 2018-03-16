@@ -156,4 +156,8 @@ public class Controller {
 		this.currentVariable = variable;
 		System.out.println(currentVariable);
 	}
+	
+	public void updateLastData(String text){
+		frame.getStatusPanel().setLastDataLabel(text);
+	}
 }
