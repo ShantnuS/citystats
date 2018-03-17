@@ -6,6 +6,7 @@ import binascii
 import pycom
 import struct
 import socket
+import json
 
 #Functions to make it easier to redo certain things############################
 def getDeviceEUI():
@@ -46,7 +47,9 @@ def sendData(data):
     s = socket.socket(socket.AF_LORA, socket.SOCK_RAW)
     s.setsockopt(socket.SOL_LORA, socket.SO_DR, 5)
     s.setblocking(False)
-    s.send(bytes(data))
+    #s.send(bytearray(data))
+    #s.send(data)
+    s.send(data.encode('utf-8'))
     #Set LED to green at the end
     pycom.rgbled(0x007f00) # green
     time.sleep(2)
@@ -69,5 +72,13 @@ appSKey = binascii.unhexlify('0C8FB72F0851D3DEE8BD07095B701A30')
 
 connectOTAA(app_eui, app_key)
 #connectABP(dAdd,netSKey,appSKey)
-data = [1,2,3,4,5,6,7,8,9,10]
+temp = 1.54
+humi = 59
+lght = 34.4
+prsr = 54.4
+rain = 32.434
+sund = 54
+output = "t" + str(temp) + ";" + "h" + str(humi) + ";"
+#data = "t1.54;h59;l32.4;p54.5;r32.434;s54"
+data = output
 sendData(data)

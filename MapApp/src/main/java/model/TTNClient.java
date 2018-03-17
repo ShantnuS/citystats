@@ -1,10 +1,12 @@
 package model;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.util.Arrays;
 
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.internal.websocket.Base64;
 import org.thethingsnetwork.data.common.Connection;
 import org.thethingsnetwork.data.common.Metadata;
 import org.thethingsnetwork.data.common.messages.ActivationMessage;
@@ -52,6 +54,20 @@ public class TTNClient {
 	
 	public static void passMessage(String devId, DataMessage data) {
 		UplinkMessage message = (UplinkMessage) data;
+		System.out.println("Raw message: " + message.getPayloadRaw());
+		byte[] bytes = message.getPayloadRaw();
+		String base64String = Base64.encodeBytes(bytes);
+		System.out.println("Base64 decode: " + base64String);
+		
+		try {
+			String s2 = new String(bytes, "UTF-8");
+			System.out.println("UTF8 decode: " + s2);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//System.out.println(message.getPayloadFields());
 		
     	String appID = message.getAppId();
     	String devID = message.getDevId();
@@ -63,7 +79,7 @@ public class TTNClient {
 		TTNDevice device = myData.getDevice();
 		device.setLatestData(myData);
 		Controller.getInstance().updateMarker(device);
-		System.out.println(payload);
+		System.out.println("Arrays to string: " + payload);
 		Controller.getInstance().updateLastData("Last Data: " + devID + " - " + metaData.getTime());
 	}
 	
