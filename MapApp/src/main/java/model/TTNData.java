@@ -2,6 +2,7 @@ package model;
 
 import org.thethingsnetwork.data.common.Metadata;
 
+//LEGACY CODE WHEN DATA OBJECT WAS NOT READY
 public class TTNData {
 
 	String appID;

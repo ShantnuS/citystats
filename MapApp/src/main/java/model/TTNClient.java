@@ -15,6 +15,7 @@ import org.thethingsnetwork.data.common.messages.UplinkMessage;
 import org.thethingsnetwork.data.mqtt.Client;
 
 import controller.Controller;
+import controller.DataParser;
 
 public class TTNClient {
 
@@ -50,9 +51,48 @@ public class TTNClient {
 			System.err.println("Could not start client! - unknown error");
 			e.printStackTrace();
 		}
-	}
+	}	
 	
 	public static void passMessage(String devId, DataMessage data) {
+		UplinkMessage message = (UplinkMessage) data;
+		byte[] bytes = message.getPayloadRaw();
+		String payload = "none";
+    	String devID = message.getDevId();
+    	Metadata metaData = message.getMetadata();
+		
+    	//Decode payload
+		try {
+			payload = new String(bytes, "UTF-8");
+			System.out.println("UTF8 decode: " + payload);
+		} catch (UnsupportedEncodingException e) {
+			System.err.println("Could not decode payload!");
+			e.printStackTrace();
+		}
+
+		TTNDevice device = Controller.getInstance().getDevice(devID);
+		CSData csData = DataParser.parseData(device, payload);
+		device.setLatestData(csData);
+		
+		Controller.getInstance().updateMarker(device); //update this
+		Controller.getInstance().updateLastData("Last Data: " + devID + " - " + metaData.getTime());	
+	}
+	
+	public static void passConnection(Connection connection) {
+		System.out.println("Connected!");
+		Controller.getInstance().setStatus(true);
+	}
+	
+	public static void passError(Throwable error) {
+		System.err.println(error);
+		Controller.getInstance().setStatus(false);
+	}
+	
+	public static void passActivation(String devId, ActivationMessage data) {
+		System.out.println("Activated: " + devId + " with data: " + data);
+	}
+	
+	//Legacy code
+	public static void passMessageLEGACY(String devId, DataMessage data) {
 		UplinkMessage message = (UplinkMessage) data;
 		System.out.println("Raw message: " + message.getPayloadRaw());
 		byte[] bytes = message.getPayloadRaw();
@@ -77,24 +117,9 @@ public class TTNClient {
     	TTNData myData = new TTNData(appID, devID, payload, metaData);
 		myData.setDevice(Controller.getInstance().getDevice(devID));
 		TTNDevice device = myData.getDevice();
-		device.setLatestData(myData);
+		device.setLatestTTNData(myData);
 		Controller.getInstance().updateMarker(device);
 		System.out.println("Arrays to string: " + payload);
 		Controller.getInstance().updateLastData("Last Data: " + devID + " - " + metaData.getTime());
 	}
-	
-	public static void passConnection(Connection connection) {
-		System.out.println("Connected!");
-		Controller.getInstance().setStatus(true);
-	}
-	
-	public static void passError(Throwable error) {
-		System.err.println(error);
-		Controller.getInstance().setStatus(false);
-	}
-	
-	public static void passActivation(String devId, ActivationMessage data) {
-		System.out.println("Activated: " + devId + " with data: " + data);
-	}
-	
 }

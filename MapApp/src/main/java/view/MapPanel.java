@@ -70,7 +70,7 @@ public class MapPanel extends MapView {
             public void onEvent(MouseEvent mouseEvent) {
                 // Removing marker from the map
             	if(device.getLatestData()!= null)
-            		infoWindow.setContent(device.getDeviceID() + ": " + device.getLatestData().getPayload());
+            		infoWindow.setContent(device.getDeviceID() + ": " + device.getLatestData().getRaw());
             	infoWindow.open(map, marker);
             }
         });
@@ -78,7 +78,7 @@ public class MapPanel extends MapView {
 	
 	public void updateMarker(TTNDevice device){
 		if(device.getLatestData()!= null)
-    		device.getInfoWindow().setContent(device.getDeviceID() + ": " + device.getLatestData().getPayload());
+    		device.getInfoWindow().setContent(device.getDeviceID() + ": " + device.getLatestData().getRaw());
 		device.getInfoWindow().open(map, device.getMarker());
 	}
 }

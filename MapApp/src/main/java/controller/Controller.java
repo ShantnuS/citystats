@@ -101,7 +101,7 @@ public class Controller {
 		for(String id: devices.keySet()){
 			d = devices.get(id);
 			System.out.println(d);
-			System.out.println(d.getLatestData().getPayload());
+			System.out.println(d.getLatestTTNData().getPayload());
 		}
 	}
 	
