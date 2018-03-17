@@ -2,7 +2,7 @@
 **Using LoPy IoT devices to measure a city's conditions**   
   
 The general data flow of the system is as follows:
-![data flow diagram](resources/diagrams/data_flow.png "data flow")    
+![data flow diagram](resources/diagrams/data_flow2.png "data flow")    
   
 Advantages of this system:  
 * System can be expanded with more devices very easily.
