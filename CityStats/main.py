@@ -6,7 +6,6 @@ import binascii
 import pycom
 import struct
 import socket
-import json
 
 #Functions to make it easier to redo certain things############################
 def getDeviceEUI():
