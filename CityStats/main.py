@@ -53,6 +53,26 @@ def sendData(data):
     pycom.rgbled(0x007f00) # green
     time.sleep(2)
     pycom.heartbeat(False)
+
+def readTemp():
+    temp = ""
+    #Read temperature here
+    return temp
+
+def readLght():
+    lght = ""
+    #Read light here
+    return lght
+
+def readHumi():
+    humi = ""
+    #Read humidity here
+    return humi
+
+def readPrsr():
+    prsr = ""
+    #Read pressure there
+    return prsr
 ###############################################################################
 
 #LED in the beginning set to red
@@ -68,6 +88,11 @@ dAdd = binascii.unhexlify('26012338')
 netSKey = binascii.unhexlify('B6E642E16BE7FB9CAEC868D34912A918')
 appSKey = binascii.unhexlify('0C8FB72F0851D3DEE8BD07095B701A30')
 
+'''
+#Put everything in a while loop
+while True:
+    #Everything here
+'''
 
 connectOTAA(app_eui, app_key)
 #connectABP(dAdd,netSKey,appSKey)

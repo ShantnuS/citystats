@@ -14,4 +14,8 @@ SQL server
 - just make it in java
 TTN lecture talks 
 - lorawan
+Diagrams
+- UI diagram
+- More network diagrams
+
 
