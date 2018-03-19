@@ -1,8 +1,7 @@
 package model;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
-import java.util.Arrays;
-
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.thethingsnetwork.data.common.Connection;
@@ -11,6 +10,8 @@ import org.thethingsnetwork.data.common.messages.ActivationMessage;
 import org.thethingsnetwork.data.common.messages.DataMessage;
 import org.thethingsnetwork.data.common.messages.UplinkMessage;
 import org.thethingsnetwork.data.mqtt.Client;
+
+import controller.DataParser;
 
 
 public class TTNClient {
@@ -49,14 +50,21 @@ public class TTNClient {
 	
 	public static void passMessage(String devId, DataMessage data) {
 		UplinkMessage message = (UplinkMessage) data;
-		
-    	String appID = message.getAppId();
+		byte[] bytes = message.getPayloadRaw();
+		String payload = "none";
     	String devID = message.getDevId();
-    	String payload = Arrays.toString(message.getPayloadRaw());
     	Metadata metaData = message.getMetadata();
-    	
-    	//TODO: call some method here that stores data onto sql server
-    	
+		
+    	//Decode payload
+		try {
+			payload = new String(bytes, "UTF-8");
+			System.out.println("UTF8 decode: " + payload);
+		} catch (UnsupportedEncodingException e) {
+			System.err.println("Could not decode payload!");
+			e.printStackTrace();
+		}
+		
+		DataParser.parseData(devID, metaData.getTime(), payload);
 	}
 	
 	public static void passConnection(Connection connection) {
