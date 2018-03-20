@@ -31,19 +31,19 @@ def readTilt():
     return tilt
 
 def percentChange(newValue, oldValue):
-    if newValue == oldValue:
-        return 100.0
     try:
         answer = (abs(newValue - oldValue))/oldValue
         answer *= 100
         return answer
     except ZeroDivisionError:
-        return 0
+        if newValue != 0:
+            return 100
+        else:
+            return 0
 
 def isSigDiff(newValue, oldValue):
     percent = percentChange(newValue, oldValue)
     # 10 percent change or greater
-    print(percent)
     if percent >= 10.0:
         return True
     else:
@@ -60,40 +60,38 @@ tilt = 0 #Called "i"
 ### CITY STATS' COOL LOOP ###
 while True:
     output = ""
-    time.sleep(1) ### SLEEPY TIME ###
+    time.sleep(0.1) ### SLEEPY TIME ###
     #Temperature
     old = temp
-    #temp = readTemp()
     temp +=1
     if isSigDiff(temp, old):
         output += "t" + str(temp) + ":"
-    '''
     #Humidity
     old = humi
-    humi = readHumi()
+    humi = 1
     if isSigDiff(humi, old):
         output += "h" + str(humi) + ":"
     #Light
     old = lght
-    lght = readLght()
+    lght = 1
     if isSigDiff(lght, old):
         output += "l" + str(lght) + ":"
     #Pressure
     old = prsr
-    prsr = readPrsr()
+    prsr = 1
     if isSigDiff(prsr, old):
         output += "p" + str(prsr) + ":"
     #Altitude
     old = alti
-    alti = readAlti()
+    alti = 1
     if isSigDiff(alti, old):
         output += "a" + str(alti) + ":"
     #Tilt
     old = tilt
-    tilt = readTilt()
+    tilt = 1
     if isSigDiff(tilt, old):
         output += "i" + str(tilt) + ":"
-    '''
+
     #Send over output if not empty
     if output != "":
         data = output

@@ -84,15 +84,17 @@ def readTilt():
     #Read tilt here
     return tilt
 
+## Returns the percent difference. If old value was 0 but new isn't then returns 100
 def percentChange(newValue, oldValue):
-    if newValue == oldValue:
-        return 100.0
     try:
         answer = (abs(newValue - oldValue))/oldValue
         answer *= 100
         return answer
     except ZeroDivisionError:
-        return 0
+        if newValue != 0:
+            return 100
+        else:
+            return 0
 
 def isSigDiff(newValue, oldValue):
     percent = percentChange(newValue, oldValue)
