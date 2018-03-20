@@ -88,14 +88,16 @@ def percentChange(newValue, oldValue):
     if newValue == oldValue:
         return 100.0
     try:
-       return (abs(newValue - oldValue))/oldValue)*100.0
+        answer = (abs(newValue - oldValue))/oldValue
+        answer *= 100
+        return answer
     except ZeroDivisionError:
         return 0
 
 def isSigDiff(newValue, oldValue):
     percent = percentChange(newValue, oldValue)
     # 10 percent change or greater
-    if percent >= 110.0 or percent <= 90.0:
+    if percent >= 10.0:
         return True
     else:
         return False
