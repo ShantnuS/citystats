@@ -55,24 +55,51 @@ def sendData(data):
     pycom.heartbeat(False)
 
 def readTemp():
-    temp = ""
+    temp = 0
     #Read temperature here
     return temp
 
 def readLght():
-    lght = ""
+    lght = 0
     #Read light here
     return lght
 
 def readHumi():
-    humi = ""
+    humi = 0
     #Read humidity here
     return humi
 
 def readPrsr():
-    prsr = ""
-    #Read pressure there
+    prsr = 0
+    #Read pressure here
     return prsr
+
+def readAlti():
+    alti = 0
+    #Read altitude here
+    return alti
+
+def readTilt():
+    tilt = 0
+    #Read tilt here
+    return tilt
+
+def percentChange(newValue, oldValue):
+    if newValue == oldValue:
+        return 100.0
+    try:
+       return (abs(newValue - oldValue))/oldValue)*100.0
+    except ZeroDivisionError:
+        return 0
+
+def isSigDiff(newValue, oldValue):
+    percent = percentChange(newValue, oldValue)
+    # 10 percent change or greater
+    if percent >= 110.0 or percent <= 90.0:
+        return True
+    else:
+        return False
+
 ###############################################################################
 
 #LED in the beginning set to red
@@ -81,28 +108,67 @@ pycom.rgbled(0x7f0000) # red
 time.sleep(1)
 
 #Set app eui and key
+#This is needed for OTAA
 app_eui = binascii.unhexlify('70B3D57ED0008813')
 app_key = binascii.unhexlify('FDFDA4AB9CB96B494BEDC19591B6746F')
 
+#This is needed for ABP (but is prone to changing)
 dAdd = binascii.unhexlify('26012338')
 netSKey = binascii.unhexlify('B6E642E16BE7FB9CAEC868D34912A918')
 appSKey = binascii.unhexlify('0C8FB72F0851D3DEE8BD07095B701A30')
 
-'''
-#Put everything in a while loop
-while True:
-    #Everything here
-'''
+#Measure temperature, humidity, light, pressure, altitude and tilt
+temp = 0 #Called "t"
+humi = 0 #Called "h"
+lght = 0 #Called "l"
+prsr = 0 #Called "p"
+alti = 0 #Called "a"
+tilt = 0 #Called "i"
 
-connectOTAA(app_eui, app_key)
+### CITY STATS' COOL LOOP ###
+while True:
+    output = ""
+    time.sleep(1) ### SLEEPY TIME ###
+    #Temperature
+    old = temp
+    temp = readTemp()
+    if isSigDiff(temp, old):
+        output += "t" + str(temp) + ":"
+    #Humidity
+    old = humi
+    humi = readHumi()
+    if isSigDiff(humi, old):
+        output += "h" + str(humi) + ":"
+    #Light
+    old = lght
+    lght = readLght()
+    if isSigDiff(lght, old):
+        output += "l" + str(lght) + ":"
+    #Pressure
+    old = prsr
+    prsr = readPrsr()
+    if isSigDiff(prsr, old):
+        output += "p" + str(prsr) + ":"
+    #Altitude
+    old = alti
+    alti = readAlti()
+    if isSigDiff(alti, old):
+        output += "a" + str(alti) + ":"
+    #Tilt
+    old = tilt
+    tilt = readTilt()
+    if isSigDiff(tilt, old):
+        output += "i" + str(tilt) + ":"
+    #Send over output if not empty
+    if output != "":
+        data = output
+        connectOTAA(app_eui, app_key)
+        sendData(data)
+
+#LEGACY HELP CODE
+'''
 #connectABP(dAdd,netSKey,appSKey)
-temp = 1.54
-humi = 59
-lght = 34.4
-prsr = 54.4
-rain = 32.434
-sund = 54
-output = "t" + str(temp) + ";" + "h" + str(humi) + ";"
+output = "t" + str(temp) + ":" + "h" + str(humi) + ":"
 #data = "t1.54;h59;l32.4;p54.5;r32.434;s54"
 data = output
-sendData(data)
+'''
