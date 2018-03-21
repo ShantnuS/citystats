@@ -107,10 +107,11 @@ def isSigDiff(newValue, oldValue):
 ###############################################################################
 
 #LED in the beginning set to red
+'''
 pycom.heartbeat(False)
 pycom.rgbled(0x7f0000) # red
 time.sleep(1)
-
+'''
 #Set app eui and key
 #This is needed for OTAA
 app_eui = binascii.unhexlify('70B3D57ED0008813')
@@ -129,6 +130,7 @@ prsr = 0 #Called "p"
 alti = 0 #Called "a"
 tilt = 0 #Called "i"
 
+'''
 ### CITY STATS' COOL LOOP ###
 while True:
     output = ""
@@ -168,7 +170,7 @@ while True:
         data = output
         connectOTAA(app_eui, app_key)
         sendData(data)
-
+'''
 #LEGACY HELP CODE
 '''
 #connectABP(dAdd,netSKey,appSKey)
