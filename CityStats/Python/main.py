@@ -1,11 +1,27 @@
 # main.py -- put your code here!
 print("Hello there!")
+
+#General Imports
 from network import LoRa
 import time
 import binascii
 import pycom
 import struct
 import socket
+
+#Pysense Imports
+from pysense import Pysense
+from LIS2HH12 import LIS2HH12
+from SI7006A20 import SI7006A20
+from LTR329ALS01 import LTR329ALS01
+from MPL3115A2 import MPL3115A2,ALTITUDE,PRESSURE
+
+py = Pysense()
+mpa = MPL3115A2(py,mode=ALTITUDE)
+mpp = MPL3115A2(py,mode=PRESSURE)
+si = SI7006A20(py)
+lt = LTR329ALS01(py)
+li = LIS2HH12(py)
 
 #Functions to make it easier to redo certain things############################
 def getDeviceEUI():
@@ -55,34 +71,32 @@ def sendData(data):
     pycom.heartbeat(False)
 
 def readTemp():
-    temp = 0
-    #Read temperature here
+    temp = si.temperature()
     return temp
 
 def readLght():
-    lght = 0
-    #Read light here
+    lght = lt.light()
     return lght
 
 def readHumi():
-    humi = 0
-    #Read humidity here
+    humi = si.humidity()
     return humi
 
 def readPrsr():
-    prsr = 0
-    #Read pressure here
+    prsr = mpp.pressure()
     return prsr
 
 def readAlti():
-    alti = 0
-    #Read altitude here
+    alti = mpa.altitude()
     return alti
 
 def readTilt():
-    tilt = 0
-    #Read tilt here
+    tilt = li.roll()
     return tilt
+
+def readVolt():
+    volt = py.read_battery_voltage()
+    return volt
 
 ## Returns the percent difference. If old value was 0 but new isn't then returns 100
 def percentChange(newValue, oldValue):
@@ -96,10 +110,11 @@ def percentChange(newValue, oldValue):
         else:
             return 0
 
-def isSigDiff(newValue, oldValue):
+#Returns true if there is thrshold difference between new and old
+def isSigDiff(newValue, oldValue, threshold):
     percent = percentChange(newValue, oldValue)
     # 10 percent change or greater
-    if percent >= 10.0:
+    if percent >= threshold:
         return True
     else:
         return False
@@ -123,54 +138,57 @@ netSKey = binascii.unhexlify('B6E642E16BE7FB9CAEC868D34912A918')
 appSKey = binascii.unhexlify('0C8FB72F0851D3DEE8BD07095B701A30')
 
 #Measure temperature, humidity, light, pressure, altitude and tilt
-temp = 0 #Called "t"
-humi = 0 #Called "h"
-lght = 0 #Called "l"
-prsr = 0 #Called "p"
-alti = 0 #Called "a"
-tilt = 0 #Called "i"
+temp = otemp = 0 #Called "t"
+humi = ohumi = 0 #Called "h"
+lght = olght = 0 #Called "l"
+prsr = oprsr = 0 #Called "p"
+alti = oalti = 0 #Called "a"
+tilt = otilt = 0 #Called "i"
+volt = 0 #Called "v"
 
-'''
 ### CITY STATS' COOL LOOP ###
 while True:
     output = ""
     time.sleep(1) ### SLEEPY TIME ###
     #Temperature
-    old = temp
     temp = readTemp()
-    if isSigDiff(temp, old):
+    if isSigDiff(temp, otemp, 10.0):
         output += "t" + str(temp) + ":"
     #Humidity
-    old = humi
     humi = readHumi()
-    if isSigDiff(humi, old):
+    if isSigDiff(humi, ohumi, 10.0):
         output += "h" + str(humi) + ":"
     #Light
-    old = lght
     lght = readLght()
-    if isSigDiff(lght, old):
+    if isSigDiff(lght, olght, 10.0):
         output += "l" + str(lght) + ":"
     #Pressure
-    old = prsr
     prsr = readPrsr()
-    if isSigDiff(prsr, old):
+    if isSigDiff(prsr, oprsr, 10.0):
         output += "p" + str(prsr) + ":"
     #Altitude
-    old = alti
     alti = readAlti()
-    if isSigDiff(alti, old):
+    if isSigDiff(alti, oalti, 10.0):
         output += "a" + str(alti) + ":"
     #Tilt
-    old = tilt
     tilt = readTilt()
-    if isSigDiff(tilt, old):
+    if isSigDiff(tilt, otilt, 10.0):
         output += "i" + str(tilt) + ":"
     #Send over output if not empty
     if output != "":
+        volt = readVolt()
+        output += "v" + str(volt)
         data = output
         connectOTAA(app_eui, app_key)
         sendData(data)
-'''
+        #Set old variables to ones which were sent
+        otemp = temp
+        ohumi = humi
+        olght = lght
+        oprsr = prsr
+        oalti = alti
+        otilt = tilt
+
 #LEGACY HELP CODE
 '''
 #connectABP(dAdd,netSKey,appSKey)
