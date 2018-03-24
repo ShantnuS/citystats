@@ -37,9 +37,11 @@ def connectOTAA(myEUI,myKey):
 
     # wait until the module has joined the network
     while not lora.has_joined():
+        '''
         pycom.rgbled(0x7f7f00) # yellow
         time.sleep(1)
         pycom.heartbeat(False)
+        '''
         time.sleep(1)
         print('Connection: retrying...')
 
@@ -54,7 +56,7 @@ def connectABP(devAddress,netSessKey,appSessKey):
     # The loop below is not even needed as connection is instant
     # However since it has no impact I have left it.
     while not lora.has_joined():
-        time.sleep(1)
+        time.sleep(2)
         print('Not joined yet...')
     print('Connection: connected!')
 
@@ -66,9 +68,11 @@ def sendData(data):
     #s.send(data)
     s.send(data.encode('utf-8'))
     #Set LED to green at the end
+    '''
     pycom.rgbled(0x007f00) # green
     time.sleep(2)
     pycom.heartbeat(False)
+    '''
 
 def readTemp():
     temp = si.temperature()
@@ -96,6 +100,7 @@ def readTilt():
 
 def readVolt():
     volt = py.read_battery_voltage()
+    volt = "{0:.2f}".format(volt)
     return volt
 
 ## Returns the percent difference. If old value was 0 but new isn't then returns 100
@@ -120,13 +125,7 @@ def isSigDiff(newValue, oldValue, threshold):
         return False
 
 ###############################################################################
-
-#LED in the beginning set to red
-'''
 pycom.heartbeat(False)
-pycom.rgbled(0x7f0000) # red
-time.sleep(1)
-'''
 #Set app eui and key
 #This is needed for OTAA
 app_eui = binascii.unhexlify('70B3D57ED0008813')
@@ -149,15 +148,14 @@ volt = 0 #Called "v"
 ### CITY STATS' COOL LOOP ###
 while True:
     output = ""
-    #time.sleep(1) ### SLEEPY TIME ###
     #Temperature
     temp = readTemp()
     if isSigDiff(temp, otemp, 10.0):
-        output += "t" + str(temp) + ":"
+        output += "t" + "{0:.2f}".format(temp) + ":"
     #Humidity
     humi = readHumi()
     if isSigDiff(humi, ohumi, 10.0):
-        output += "h" + str(humi) + ":"
+        output += "h" + "{0:.2f}".format(humi) + ":"
     #Light
     lght = readLght()
     if isSigDiff(lght, olght, 10.0):
@@ -165,22 +163,26 @@ while True:
     #Pressure
     prsr = readPrsr()
     if isSigDiff(prsr, oprsr, 10.0):
-        output += "p" + str(prsr) + ":"
+        output += "p" + "{0:.2f}".format(prsr) + ":"
     #Altitude
     alti = readAlti()
     if isSigDiff(alti, oalti, 10.0):
-        output += "a" + str(alti) + ":"
+        output += "a" + "{0:.2f}".format(alti) + ":"
     #Tilt
     tilt = readTilt()
     if isSigDiff(tilt, otilt, 10.0):
-        output += "i" + str(tilt) + ":"
+        output += "i" + "{0:.2f}".format(tilt) + ":"
     #Send over output if not empty
     if output != "":
         volt = readVolt()
         output += "v" + str(volt)
         data = output
-        #connectOTAA(app_eui, app_key)
-        #sendData(data)
+        connectOTAA(app_eui, app_key)
+        sendData(data)
+        # Set LED green to signify data sent
+        pycom.rgbled(0x007f00) # green
+        time.sleep(0.5)
+        pycom.heartbeat(False)
         print(data)
         #Set old variables to ones which were sent
         otemp = temp
@@ -191,6 +193,7 @@ while True:
         otilt = tilt
     else:
         print("No change...")
+        time.sleep(1) ### SLEEPY TIME ###
 
 #LEGACY HELP CODE
 '''
