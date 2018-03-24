@@ -106,7 +106,6 @@ public class CSData {
 	public void generateFormatted(){
 		String temp = "Device: " + this.device.getDeviceID() + "\n" 
 								 + "Time: " + this.date + "\n";
-		System.out.println(temp);
 		switch(Controller.getInstance().getCurrentVariable()){
 		case "Temperature": temp += "Temperature: " + this.temperature + UnitManager.TEMPERATURE;
 							break;

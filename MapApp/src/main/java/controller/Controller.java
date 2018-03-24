@@ -161,7 +161,7 @@ public class Controller {
 	
 	public void setCurrentVariable(String variable){
 		this.currentVariable = variable;
-		System.out.println(currentVariable);
+		System.err.println("Switching to: " + currentVariable);
 		
 		TTNDevice d;
 		for(String id: devices.keySet()){
@@ -187,4 +187,5 @@ public class Controller {
         icon.setScaledSize(new Size(25,25));
 		device.getMarker().setIcon(icon);
 	}
+	
 }

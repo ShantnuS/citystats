@@ -74,7 +74,7 @@ public class TTNClient {
 		device.setLatestData(csData);
 		
 		Controller.getInstance().updateMarker(device); //update this
-		Controller.getInstance().updateLastData("Last Data: " + devID + " - " + metaData.getTime());	
+		Controller.getInstance().updateLastData("Last Data: " + devID + " " + csData.getDate());	
 	}
 	
 	public static void passConnection(Connection connection) {

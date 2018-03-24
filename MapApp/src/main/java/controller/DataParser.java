@@ -41,7 +41,7 @@ public class DataParser {
 	
 	public static String parseTime(String date){
 		String[] parts = date.split("T");
-		String time = parts[1].substring(0, 8) + "&" + parts[0];
+		String time = parts[1].substring(0, 8) + "@" + parts[0];
 		
 		return time;
 	}

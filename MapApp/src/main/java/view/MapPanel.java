@@ -1,9 +1,6 @@
 package view;
 
-import java.io.File;
-
 import com.teamdev.jxmaps.ControlPosition;
-import com.teamdev.jxmaps.Icon;
 import com.teamdev.jxmaps.InfoWindow;
 import com.teamdev.jxmaps.LatLng;
 import com.teamdev.jxmaps.Map;
@@ -14,7 +11,6 @@ import com.teamdev.jxmaps.MapStatus;
 import com.teamdev.jxmaps.MapTypeControlOptions;
 import com.teamdev.jxmaps.Marker;
 import com.teamdev.jxmaps.MouseEvent;
-import com.teamdev.jxmaps.Size;
 import com.teamdev.jxmaps.swing.MapView;
 
 import controller.Controller;
