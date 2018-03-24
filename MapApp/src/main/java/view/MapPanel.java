@@ -78,7 +78,7 @@ public class MapPanel extends MapView {
 	
 	public void updateMarker(TTNDevice device){
 		if(device.getLatestData()!= null)
-    		device.getInfoWindow().setContent(device.getDeviceID() + ": " + device.getLatestData().getFormatted());
+    		device.getInfoWindow().setContent(device.getLatestData().getFormatted());
 		device.getInfoWindow().open(map, device.getMarker());
 	}
 }

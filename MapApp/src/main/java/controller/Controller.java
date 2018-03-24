@@ -1,11 +1,14 @@
 package controller;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.teamdev.jxmaps.Icon;
 import com.teamdev.jxmaps.LatLng;
+import com.teamdev.jxmaps.Size;
 
 import model.TTNClient;
 import model.TTNDevice;
@@ -121,6 +124,9 @@ public class Controller {
 	
 	//Update marker upon new data receiving
 	public void updateMarker(TTNDevice device){
+		//Set icon of the marker
+		this.setIcon(device);
+		//Update marker on map
 		frame.getMapPanel().updateMarker(device);
 	}
 	
@@ -173,5 +179,12 @@ public class Controller {
 	
 	public void updateLastData(String text){
 		frame.getStatusPanel().setLastDataLabel(text);
+	}
+	
+	public void setIcon(TTNDevice device){
+		Icon icon = new Icon();
+        icon.loadFromFile(new File("res//assets//sun.png"));
+        icon.setScaledSize(new Size(25,25));
+		device.getMarker().setIcon(icon);
 	}
 }
