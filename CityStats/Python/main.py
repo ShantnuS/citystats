@@ -75,8 +75,8 @@ def readTemp():
     return temp
 
 def readLght():
-    lght = lt.light()
-    return lght
+    lght = lt.light() #Red channel lux
+    return lght[1]
 
 def readHumi():
     humi = si.humidity()
@@ -149,7 +149,7 @@ volt = 0 #Called "v"
 ### CITY STATS' COOL LOOP ###
 while True:
     output = ""
-    time.sleep(1) ### SLEEPY TIME ###
+    #time.sleep(1) ### SLEEPY TIME ###
     #Temperature
     temp = readTemp()
     if isSigDiff(temp, otemp, 10.0):
@@ -179,8 +179,9 @@ while True:
         volt = readVolt()
         output += "v" + str(volt)
         data = output
-        connectOTAA(app_eui, app_key)
-        sendData(data)
+        #connectOTAA(app_eui, app_key)
+        #sendData(data)
+        print(data)
         #Set old variables to ones which were sent
         otemp = temp
         ohumi = humi
@@ -188,6 +189,8 @@ while True:
         oprsr = prsr
         oalti = alti
         otilt = tilt
+    else:
+        print("No change...")
 
 #LEGACY HELP CODE
 '''
