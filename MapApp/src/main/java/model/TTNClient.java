@@ -70,7 +70,7 @@ public class TTNClient {
 		}
 
 		TTNDevice device = Controller.getInstance().getDevice(devID);
-		CSData csData = DataParser.parseData(device, payload);
+		CSData csData = DataParser.parseData(device, payload, metaData.getTime());
 		device.setLatestData(csData);
 		
 		Controller.getInstance().updateMarker(device); //update this
