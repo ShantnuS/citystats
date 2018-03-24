@@ -9,7 +9,7 @@ public class DataParser {
 	//Might even parse entire TTNData object to create something better
 	public static CSData parseData(TTNDevice device, String payload){
 		CSData data = new CSData(device, payload);
-		
+		//data.setTemperature(payload);
 		return data;
 	}
 }

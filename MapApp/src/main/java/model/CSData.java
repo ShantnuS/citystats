@@ -1,5 +1,8 @@
 package model;
 
+import controller.Controller;
+import model.UnitManager;
+
 //CS stands for city stats. This data object is only necessary for this application 
 
 public class CSData {
@@ -8,16 +11,29 @@ public class CSData {
 	String raw;
 	String formatted;
 	String date;
+	
 	String temperature;
 	String humidity;
 	String light;
 	String pressure;
-	String rain;
-	String sound;
+	String altitude;
+	String tilt;
+	String voltage;
+
 	
 	public CSData(TTNDevice device, String raw){
 		this.device = device;
 		this.raw = raw;
+		this.date = "none";
+		this.temperature = "none";
+		this.humidity = "none";
+		this.light = "none";
+		this.pressure = "none";
+		this.altitude = "none";
+		this.tilt = "none";
+		this.voltage = "none";
+		
+		this.generateFormatted();
 	}
 	
 	public TTNDevice getDevice() {
@@ -63,18 +79,51 @@ public class CSData {
 	public void setPressure(String pressure) {
 		this.pressure = pressure;
 	}
-	public String getRain() {
-		return rain;
+	public String getAltitude() {
+		return altitude;
 	}
-	public void setRain(String rain) {
-		this.rain = rain;
+
+	public void setAltitude(String altitude) {
+		this.altitude = altitude;
 	}
-	public String getSound() {
-		return sound;
+
+	public String getTilt() {
+		return tilt;
 	}
-	public void setSound(String sound) {
-		this.sound = sound;
+
+	public void setTilt(String tilt) {
+		this.tilt = tilt;
+	}
+
+	public String getVoltage() {
+		return voltage;
+	}
+
+	public void setVoltage(String voltage) {
+		this.voltage = voltage;
 	}
 	
+	public void generateFormatted(){
+		String temp = "Device: " + this.device.getDeviceID() + "\n" 
+								 + "Time: " + this.date + "\n";
+		System.out.println(temp);
+		switch(Controller.getInstance().getCurrentVariable()){
+		case "Temperature": temp += "Temperature: " + this.temperature + UnitManager.TEMPERATURE;
+							break;
+		case "Light": 		temp += "Light: " + this.light + UnitManager.LIGHT;
+							break;
+		case "Humidity": 	temp += "Humidity: " + this.humidity + UnitManager.HUMIDITY;
+							break;
+		case "Pressure": 	temp += "Pressure: " + this.pressure + UnitManager.PRESSURE;
+							break;
+		case "Altitude": 	temp += "Altitude: " + this.altitude + UnitManager.ALTITUDE;
+							break;
+		case "Tilt": 		temp += "Tilt: " + this.tilt + UnitManager.TILT;
+							break;
+		case "Voltage": 	temp += "Voltage: " + this.voltage + UnitManager.VOLTAGE;
+							break;
+		}
+		this.formatted = temp;
+	}
 	
 }

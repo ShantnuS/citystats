@@ -20,12 +20,13 @@ public class Controller {
 	MainFrame frame;
 	HashMap<String, TTNDevice> devices;
 	boolean status; //true if connected
-	String[] variables = {"Temperature", "Light", "Humidity", "Pressure"};
+	String[] variables = {"Temperature", "Light", "Humidity", "Pressure", "Altitude", "Tilt", "Voltage"};
 	String currentVariable;
 	
 	private Controller() {
 		devices = new HashMap<String, TTNDevice>();
 		status = false;
+		currentVariable = variables[0];
 		try {
 			this.createDevices();
 		} catch (Exception e) {
@@ -101,7 +102,7 @@ public class Controller {
 		for(String id: devices.keySet()){
 			d = devices.get(id);
 			System.out.println(d);
-			System.out.println(d.getLatestTTNData().getPayload());
+			System.out.println(d.getLatestData().getRaw());
 		}
 	}
 	
@@ -155,6 +156,19 @@ public class Controller {
 	public void setCurrentVariable(String variable){
 		this.currentVariable = variable;
 		System.out.println(currentVariable);
+		
+		TTNDevice d;
+		for(String id: devices.keySet()){
+			d = devices.get(id);
+			if(d.getLatestData()!=null){
+				d.getLatestData().generateFormatted();
+				updateMarker(d);
+			}
+		}
+	}
+	
+	public String getCurrentVariable(){
+		return this.currentVariable;
 	}
 	
 	public void updateLastData(String text){
