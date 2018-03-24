@@ -53,11 +53,6 @@ public class MapPanel extends MapView {
 	
 	public void createMarker(LatLng latlng, TTNDevice device){
         Marker marker = new Marker(map);
-/*        Icon icon = new Icon();
-        icon.loadFromFile(new File("res//assets//sun.png"));
-        icon.setScaledSize(new Size(25,25));
-        //icon.setSize(new Size(25,25));
-        marker.setIcon(icon);*/
         marker.setPosition(latlng);
         final InfoWindow infoWindow = new InfoWindow(map);
         infoWindow.setContent(device.getDeviceID());
