@@ -30,6 +30,9 @@ The main views of the application are:
 ### DataServer ###
 [Located here](DataServer/Java).   
 This is the Java code that stores all received data onto a SQL server. 
+  
+The database is structured as below:   
+![database diagram](resources/diagrams/database.png "database")  
 
 ## Libraries ## 
 A number of external libraries were used to create this project. 
