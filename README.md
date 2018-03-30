@@ -2,7 +2,7 @@
 **Using LoPy IoT devices to measure a city's conditions**   
   
 The general data flow of the system is as follows:
-<img src="resources/diagrams/data_flow2.png" width="500">   
+<img src="resources/diagrams/data_flow2.png" width="500" align="middle">   
   
 Advantages of this system:  
 * System can be expanded with more devices very easily.
@@ -31,8 +31,9 @@ The main views of the application are:
 [Located here](DataServer/Java).   
 This is the Java code that stores all received data onto a SQL server. 
   
-The database is structured as below:   
-<img src="resources/diagrams/database.png" width="250">
+The database is structured as below: 
+    
+<img src="resources/diagrams/database.png" width="300" align="middle">
 
 ## Libraries ## 
 A number of external libraries were used to create this project. 
