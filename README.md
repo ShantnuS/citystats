@@ -1,7 +1,8 @@
 # citystats
 **Using LoPy IoT devices to measure a city's conditions**   
   
-The general data flow of the system is as follows:
+The general data flow of the system is as follows:  
+  
 <img src="resources/diagrams/data_flow2.png" width="500" align="middle">   
   
 Advantages of this system:  
