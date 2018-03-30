@@ -32,7 +32,7 @@ The main views of the application are:
 This is the Java code that stores all received data onto a SQL server. 
   
 The database is structured as below:   
-![database diagram](resources/diagrams/database.png "database")  
+![database diagram](resources/diagrams/database.png "database" =20x)  
 
 ## Libraries ## 
 A number of external libraries were used to create this project. 
