@@ -11,7 +11,7 @@ public class SQLTest {
 	   static final String USER = "REDACTED";
 	   static final String PASS = "REDACTED";
 	   
-	   public static void main(String[] args) {
+	   public static void testSelect() {
 		   Connection conn = null;
 		   Statement stmt = null;
 		   try{
@@ -33,7 +33,7 @@ public class SQLTest {
 		      while(rs.next()){
 		         //Retrieve by column name
 		         String devID = rs.getString("devID");
-		         System.out.print("DevID : " + devID);
+		         System.out.println("DevID : " + devID);
 		      }
 		      rs.close();
 		   }catch(SQLException se){
