@@ -1,5 +1,6 @@
 package model;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
@@ -12,6 +13,7 @@ import org.thethingsnetwork.data.common.messages.UplinkMessage;
 import org.thethingsnetwork.data.mqtt.Client;
 
 import controller.DataParser;
+import controller.SQLManager;
 
 
 public class TTNClient {
@@ -64,7 +66,15 @@ public class TTNClient {
 			e.printStackTrace();
 		}
 		
-		DataParser.parseData(devID, metaData.getTime(), payload);
+		CSData resultData = DataParser.parseData(devID, payload, metaData.getTime());
+		
+		//Put into SQL database
+		try {
+			SQLManager.putIntoDatabase(resultData);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static void passConnection(Connection connection) {
