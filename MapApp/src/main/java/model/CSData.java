@@ -102,8 +102,8 @@ public class CSData {
 	}
 	
 	public void generateFormatted(){	
-		String temp = "Device: " + this.device.getDeviceID()
-								 + "<br>Time: " + this.date ;
+		String temp = "<h3><b>Device: " + this.device.getDeviceID() + "</b></h3>"
+								 + "<br><b>Time: </b>" + this.date ;
 		
 		for(String e: Controller.getInstance().getVariables()){
 			if(this.getVariable(e).equals("none")){
@@ -140,19 +140,19 @@ public class CSData {
 		String temp = "";
 		
 		switch(variable){
-		case "Temperature": temp += "<br>Temperature: " + this.temperature + UnitManager.TEMPERATURE;
+		case "Temperature": temp += "<br><b>Temperature: </b>" + this.temperature + UnitManager.TEMPERATURE;
 							break;
-		case "Light": 		temp += "<br>Light: " + this.light + UnitManager.LIGHT;
+		case "Light": 		temp += "<br><b>Light: </b>" + this.light + UnitManager.LIGHT;
 							break;
-		case "Humidity": 	temp += "<br>Humidity: " + this.humidity + UnitManager.HUMIDITY;
+		case "Humidity": 	temp += "<br><b>Humidity: </b>" + this.humidity + UnitManager.HUMIDITY;
 							break;
-		case "Pressure": 	temp += "<br>Pressure: " + this.pressure + UnitManager.PRESSURE;
+		case "Pressure": 	temp += "<br><b>Pressure: </b>" + this.pressure + UnitManager.PRESSURE;
 							break;
-		case "Altitude": 	temp += "<br>Altitude: " + this.altitude + UnitManager.ALTITUDE;
+		case "Altitude": 	temp += "<br><b>Altitude: </b>" + this.altitude + UnitManager.ALTITUDE;
 							break;
-		case "Tilt": 		temp += "<br>Tilt: " + this.tilt + UnitManager.TILT;
+		case "Tilt": 		temp += "<br><b>Tilt: </b>" + this.tilt + UnitManager.TILT;
 							break;
-		case "Voltage": 	temp += "<br>Voltage: " + this.voltage + UnitManager.VOLTAGE;
+		case "Voltage": 	temp += "<br><b>Voltage: </b>" + this.voltage + UnitManager.VOLTAGE;
 							break;
 		}
 		return temp;

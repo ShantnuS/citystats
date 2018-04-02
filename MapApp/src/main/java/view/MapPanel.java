@@ -61,7 +61,7 @@ public class MapPanel extends MapView {
             public void onEvent(MouseEvent mouseEvent) {
                 // Removing marker from the map
             	if(device.getLatestData()!= null)
-            		infoWindow.setContent(device.getDeviceID() + ": " + device.getLatestData().getFormatted());
+            		infoWindow.setContent(device.getLatestData().getFormatted());
             	infoWindow.open(map, marker);
             }
         });
