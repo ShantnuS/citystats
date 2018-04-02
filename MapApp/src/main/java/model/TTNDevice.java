@@ -10,8 +10,6 @@ public class TTNDevice {
 	String deviceID;
 	String longitude;
 	String latitude;
-	ArrayList<TTNData> allTTNData; //Legacy
-	TTNData latestTTNData; //Legacy
 	ArrayList<CSData> allData;
 	CSData latestData;
 	Marker marker;
@@ -21,7 +19,6 @@ public class TTNDevice {
 		this.deviceID = deviceID;
 		this.longitude = longitude;
 		this.latitude = latitude;
-		allTTNData = new ArrayList<TTNData>();
 		allData = new ArrayList<CSData>();
 	}
 	
@@ -74,23 +71,6 @@ public class TTNDevice {
 		this.latitude = latitude;
 	}
 	
-	public void setLatestTTNData(TTNData latestData) {
-		this.latestTTNData = latestData;
-		this.addTTNData(latestData);
-	}
-	
-	public void addTTNData(TTNData data) {
-		allTTNData.add(data);
-	}
-	
-	public TTNData getLatestTTNData() {
-		return this.latestTTNData;
-	}
-	
-	public ArrayList<TTNData> getAllTTNData(){
-		return this.allTTNData;
-	}
-	
 	public void setMarker(Marker marker){
 		this.marker = marker; 
 	}
@@ -99,10 +79,4 @@ public class TTNDevice {
 		this.infoWindow = infoWindow;
 	}
 	
-	public CSData getOneBeforeLatestData(){
-		if(allData.size()>=2)
-			return this.allData.get(allData.size()-2);
-		else
-			return null;
-	}
 }

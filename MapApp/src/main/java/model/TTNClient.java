@@ -119,7 +119,7 @@ public class TTNClient {
     	TTNData myData = new TTNData(appID, devID, payload, metaData);
 		myData.setDevice(Controller.getInstance().getDevice(devID));
 		TTNDevice device = myData.getDevice();
-		device.setLatestTTNData(myData);
+		//device.setLatestTTNData(myData);
 		Controller.getInstance().updateMarker(device);
 		System.out.println("Arrays to string: " + payload);
 		Controller.getInstance().updateLastData("Last Data: " + devID + " - " + metaData.getTime());
