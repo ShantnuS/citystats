@@ -92,6 +92,10 @@ public class Controller {
 		devices.put(deviceID, device);
 	}
 	
+	public String[] getDeviceIDs(){
+		return devices.keySet().toArray(new String[devices.keySet().size()]);
+	}
+	
 	public void printAllDevices() {
 		TTNDevice d;
 		for(String id: devices.keySet()){

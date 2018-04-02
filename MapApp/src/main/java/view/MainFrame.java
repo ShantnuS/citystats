@@ -21,7 +21,7 @@ public class MainFrame extends JFrame {
 	StatusPanel statusPanel;
 	JTabbedPane tabs; 
 	MapPanel mapPanel;
-	JPanel dataPanel;
+	DataPanel dataPanel;
 	
 	
 	public MainFrame() {
@@ -41,7 +41,7 @@ public class MainFrame extends JFrame {
 		
 		JTabbedPane tabbedPane = new JTabbedPane();
 		mapPanel = new MapPanel();
-		dataPanel = new JPanel();
+		dataPanel = new DataPanel();
 		dataPanel.setBackground(Color.black);
 		tabbedPane.add("Map", mapPanel);
 		tabbedPane.add("Data", dataPanel);
