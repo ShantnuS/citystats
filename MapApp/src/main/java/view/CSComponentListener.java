@@ -11,7 +11,8 @@ public class CSComponentListener implements ComponentListener{
 	public void componentResized(ComponentEvent e) {
 		// TODO Auto-generated method stub
 		if(Controller.getInstance().getMainFrame()!= null)
-			Controller.getInstance().getMainFrame().getDataPanel().refresh();;
+			if(Controller.getInstance().getMainFrame().selectedTab().equals("Data"))
+				Controller.getInstance().getMainFrame().getDataPanel().refresh();;
 	}
 
 	@Override

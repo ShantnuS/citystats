@@ -39,14 +39,14 @@ public class MainFrame extends JFrame {
 		//Top status panel
 		statusPanel = new StatusPanel();
 		
-		JTabbedPane tabbedPane = new JTabbedPane();
+		tabs = new JTabbedPane();
 		mapPanel = new MapPanel();
 		dataPanel = new DataPanel();
 		dataPanel.setBackground(Color.black);
-		tabbedPane.add("Map", mapPanel);
-		tabbedPane.add("Data", dataPanel);
+		tabs.add("Map", mapPanel);
+		tabs.add("Data", dataPanel);
 		
-		this.add(tabbedPane, BorderLayout.CENTER);
+		this.add(tabs, BorderLayout.CENTER);
 		this.add(statusPanel, BorderLayout.NORTH);
 		
 		this.addWindowListener(new CSWindowListener());
@@ -66,5 +66,9 @@ public class MainFrame extends JFrame {
 	
 	public StatusPanel getStatusPanel(){
 		return this.statusPanel;
+	}
+	
+	public String selectedTab(){
+		return this.tabs.getTitleAt(tabs.getSelectedIndex());
 	}
 }
