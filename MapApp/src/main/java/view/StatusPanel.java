@@ -32,7 +32,7 @@ public class StatusPanel extends JPanel {
 		});
 		*/
 		
-		lastData = new JLabel("N/A");
+		lastData = new JLabel("...");
 		
 		this.setStatus(false); //as initially it should be red
 		this.setLayout(new FlowLayout());

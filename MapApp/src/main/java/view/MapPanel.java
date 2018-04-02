@@ -14,6 +14,7 @@ import com.teamdev.jxmaps.MouseEvent;
 import com.teamdev.jxmaps.swing.MapView;
 
 import controller.Controller;
+import controller.ETCHelper;
 import model.TTNDevice;
 
 public class MapPanel extends MapView {
@@ -51,7 +52,7 @@ public class MapPanel extends MapView {
         Marker marker = new Marker(map);
         marker.setPosition(latlng);
         final InfoWindow infoWindow = new InfoWindow(map);
-        infoWindow.setContent(device.getDeviceID());
+        infoWindow.setContent(ETCHelper.getTempFormatted(device.getDeviceID()));
         //infoWindow.open(map, marker);
         device.setMarker(marker);
         device.setInfoWindow(infoWindow);
