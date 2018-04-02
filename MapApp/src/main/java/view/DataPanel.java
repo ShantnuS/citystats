@@ -2,7 +2,6 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -167,6 +166,11 @@ public class DataPanel extends JPanel{
 			JPanel panel3 = new JPanel();
 			JPanel panel4 = new JPanel();
 			
+			panel1.setLayout(new BorderLayout());
+			panel2.setLayout(new BorderLayout());
+			panel3.setLayout(new BorderLayout());
+			panel4.setLayout(new BorderLayout());
+			
 			panel1.setBackground(Color.BLUE);
 			panel2.setBackground(Color.yellow);
 			panel3.setBackground(Color.red);
@@ -191,8 +195,8 @@ public class DataPanel extends JPanel{
 			
 			ChartPanel pieChartPanel = new ChartPanel(pieChart);
 			
-			panel1.add(barChartPanel);
-			panel2.add(pieChartPanel);
+			panel1.add(barChartPanel, BorderLayout.CENTER);
+			panel2.add(pieChartPanel, BorderLayout.CENTER);
 			//panel3.add(barChartPanel);
 			//panel4.add(barChartPanel);	
 			
