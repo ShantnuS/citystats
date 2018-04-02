@@ -4,7 +4,7 @@ public class ETCHelper {
 
 	
 	public static String getTempFormatted(String deviceID){
-		String temp = "<h3><b>Device: " + deviceID + "</b></h3>"
+		String temp = "<h2><b>Device: " + deviceID + "</b></h3>"
 				 + "<br><b>Time: </b>" + "none" ;
 		
 		temp += "<br><b>Temperature: </b>" + "none";

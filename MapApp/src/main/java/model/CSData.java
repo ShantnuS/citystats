@@ -102,7 +102,7 @@ public class CSData {
 	}
 	
 	public void generateFormatted(){	
-		String temp = "<h3><b>Device: " + this.device.getDeviceID() + "</b></h3>"
+		String temp = "<h2><b>Device: " + this.device.getDeviceID() + "</b></h3>"
 								 + "<br><b>Time: </b>" + this.date ;
 		
 		for(String e: Controller.getInstance().getVariables()){
