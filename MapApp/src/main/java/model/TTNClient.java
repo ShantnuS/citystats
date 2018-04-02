@@ -59,7 +59,7 @@ public class TTNClient {
 		String payload = "none";
     	String devID = message.getDevId();
     	Metadata metaData = message.getMetadata();
-		
+    		
     	//Decode payload
 		try {
 			payload = new String(bytes, "UTF-8");
@@ -74,7 +74,7 @@ public class TTNClient {
 		device.setLatestData(csData);
 		
 		Controller.getInstance().updateMarker(device); //update this
-		Controller.getInstance().updateLastData("Last Data: " + devID + " " + csData.getDate());	
+		Controller.getInstance().updateLastData("Last Data: " + devID + " " + csData.getDate());
 	}
 	
 	public static void passConnection(Connection connection) {
@@ -83,7 +83,9 @@ public class TTNClient {
 	}
 	
 	public static void passError(Throwable error) {
+		System.out.println("Client Error!");
 		System.err.println(error);
+		System.err.println(error.getMessage());
 		Controller.getInstance().setStatus(false);
 	}
 	

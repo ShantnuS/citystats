@@ -32,8 +32,6 @@ public class CSData {
 		this.altitude = "none";
 		this.tilt = "none";
 		this.voltage = "none";
-		
-		this.generateFormatted();
 	}
 	
 	public TTNDevice getDevice() {
@@ -103,26 +101,81 @@ public class CSData {
 		this.voltage = voltage;
 	}
 	
-	public void generateFormatted(){
-		String temp = "Device: " + this.device.getDeviceID() + "\n" 
-								 + "Time: " + this.date + "\n";
-		switch(Controller.getInstance().getCurrentVariable()){
-		case "Temperature": temp += "Temperature: " + this.temperature + UnitManager.TEMPERATURE;
-							break;
-		case "Light": 		temp += "Light: " + this.light + UnitManager.LIGHT;
-							break;
-		case "Humidity": 	temp += "Humidity: " + this.humidity + UnitManager.HUMIDITY;
-							break;
-		case "Pressure": 	temp += "Pressure: " + this.pressure + UnitManager.PRESSURE;
-							break;
-		case "Altitude": 	temp += "Altitude: " + this.altitude + UnitManager.ALTITUDE;
-							break;
-		case "Tilt": 		temp += "Tilt: " + this.tilt + UnitManager.TILT;
-							break;
-		case "Voltage": 	temp += "Voltage: " + this.voltage + UnitManager.VOLTAGE;
-							break;
+	public void generateFormatted(){	
+		String temp = "Device: " + this.device.getDeviceID()
+								 + "<br>Time: " + this.date ;
+		
+		for(String e: Controller.getInstance().getVariables()){
+			if(this.getVariable(e).equals("none")){
+				if(device.getLatestData()!=null){
+					this.createFromOld(device, e);
+				}
+			}
+			
+			temp+=this.createFormatted(e);
 		}
 		this.formatted = temp;
 	}
 	
+	public void createFromOld(TTNDevice device, String variable){
+		switch(variable){
+		case "Temperature":	this.setTemperature(device.latestData.getTemperature() + "*");
+							break;
+		case "Light": 		this.setLight(device.latestData.getLight()+ "*");
+							break;
+		case "Humidity": 	this.setHumidity(device.latestData.getHumidity()+ "*");
+							break;
+		case "Pressure": 	this.setPressure(device.latestData.getPressure()+ "*");
+							break;
+		case "Altitude": 	this.setAltitude(device.latestData.getAltitude()+ "*");
+							break;
+		case "Tilt": 		this.setTilt(device.latestData.getTilt()+ "*");
+							break;
+		case "Voltage": 	this.setVoltage(device.latestData.getVoltage()+ "*");
+							break;
+		}
+	}
+	
+	public String createFormatted(String variable){
+		String temp = "";
+		
+		switch(variable){
+		case "Temperature": temp += "<br>Temperature: " + this.temperature + UnitManager.TEMPERATURE;
+							break;
+		case "Light": 		temp += "<br>Light: " + this.light + UnitManager.LIGHT;
+							break;
+		case "Humidity": 	temp += "<br>Humidity: " + this.humidity + UnitManager.HUMIDITY;
+							break;
+		case "Pressure": 	temp += "<br>Pressure: " + this.pressure + UnitManager.PRESSURE;
+							break;
+		case "Altitude": 	temp += "<br>Altitude: " + this.altitude + UnitManager.ALTITUDE;
+							break;
+		case "Tilt": 		temp += "<br>Tilt: " + this.tilt + UnitManager.TILT;
+							break;
+		case "Voltage": 	temp += "<br>Voltage: " + this.voltage + UnitManager.VOLTAGE;
+							break;
+		}
+		return temp;
+	}	
+	
+	public String getVariable(String variable){
+		String temp = "";
+		switch(variable){
+		case "Temperature": temp = this.temperature;
+							break;
+		case "Light": 		temp = this.light;
+							break;
+		case "Humidity": 	temp = this.humidity;
+							break;
+		case "Pressure": 	temp = this.pressure;
+							break;
+		case "Altitude": 	temp = this.altitude;
+							break;
+		case "Tilt": 		temp = this.tilt;
+							break;
+		case "Voltage": 	temp = this.voltage;
+							break;
+		}
+		return temp;
+	}
 }

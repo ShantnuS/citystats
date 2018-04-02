@@ -8,6 +8,7 @@ public class DataParser {
 	//Use this to turn payload into normalised data type that can be used.
 	//Might even parse entire TTNData object to create something better
 	public static CSData parseData(TTNDevice device, String payload, String date){
+		System.out.println("Parsing!");
 		CSData data = new CSData(device, payload);
 		data.setDate(DataParser.parseTime(date));
 		String[] parts = payload.split(":");
@@ -34,7 +35,6 @@ public class DataParser {
 						break;
 			}
 		}
-		
 		data.generateFormatted();
 		return data;
 	}

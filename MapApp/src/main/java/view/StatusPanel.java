@@ -20,21 +20,24 @@ public class StatusPanel extends JPanel {
 	
 	public StatusPanel(){
 		//Combobox
+		/*
 		comboBox = new JComboBox<String>(Controller.getInstance().getVariables());
 		comboBox.setLightWeightPopupEnabled(false);
+		
 		
 		comboBox.addActionListener (new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
 		        Controller.getInstance().setCurrentVariable((String)comboBox.getSelectedItem());
 		    }
 		});
+		*/
 		
 		lastData = new JLabel("N/A");
 		
 		this.setStatus(false); //as initially it should be red
 		this.setLayout(new FlowLayout());
 		
-		this.add(comboBox);
+		//this.add(comboBox); //Combobox has been dicontinued
 		this.add(lastData);
 	}
 	

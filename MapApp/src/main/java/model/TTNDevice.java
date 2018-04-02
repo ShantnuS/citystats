@@ -99,4 +99,10 @@ public class TTNDevice {
 		this.infoWindow = infoWindow;
 	}
 	
+	public CSData getOneBeforeLatestData(){
+		if(allData.size()>=2)
+			return this.allData.get(allData.size()-2);
+		else
+			return null;
+	}
 }
