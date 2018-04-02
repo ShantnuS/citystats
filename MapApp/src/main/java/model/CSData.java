@@ -34,6 +34,21 @@ public class CSData {
 		this.voltage = "none";
 	}
 	
+	public CSData(TTNDevice device, String date, 
+			String temperature, String humidity,
+			String light, String pressure, String altitude,
+			String tilt, String voltage){
+		this.device=device;
+		this.date=date;
+		this.temperature=temperature;
+		this.humidity=humidity;
+		this.light=light;
+		this.pressure=pressure;
+		this.altitude=altitude;
+		this.tilt=tilt;
+		this.voltage=voltage;
+	}
+	
 	public TTNDevice getDevice() {
 		return device;
 	}

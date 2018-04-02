@@ -41,8 +41,10 @@ public class MapPanel extends MapView {
                     
                     //ready the map
                     map.setCenter(Controller.getInstance().getInitLatLng());
-                    map.setZoom(15.0);    
+                    map.setZoom(16.0);    
                     Controller.getInstance().initMarkers();
+                    
+                    recenter();
                 }
             }
         });
@@ -72,5 +74,9 @@ public class MapPanel extends MapView {
 		if(device.getLatestData()!= null)
     		device.getInfoWindow().setContent(device.getLatestData().getFormatted());
 		device.getInfoWindow().open(map, device.getMarker());
+	}
+	
+	public void recenter(){
+		map.setCenter(Controller.getInstance().getInitLatLng());
 	}
 }

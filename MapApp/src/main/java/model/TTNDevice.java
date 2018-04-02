@@ -31,6 +31,10 @@ public class TTNDevice {
 		allData.add(data);
 	}
 	
+	public void eraseData(){
+		allData = new ArrayList<CSData>();
+	}
+	
 	public CSData getLatestData() {
 		return this.latestData;
 	}

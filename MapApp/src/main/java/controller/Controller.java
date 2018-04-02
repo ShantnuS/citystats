@@ -143,6 +143,10 @@ public class Controller {
 		}
 	}
 	
+	public HashMap<String,TTNDevice> getAllDevices(){
+		return this.devices;
+	}
+	
 	public MainFrame getMainFrame(){
 		return this.frame;
 	}

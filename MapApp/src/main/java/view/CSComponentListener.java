@@ -3,12 +3,15 @@ package view;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
+import controller.Controller;
+
 public class CSComponentListener implements ComponentListener{
 
 	@Override
 	public void componentResized(ComponentEvent e) {
 		// TODO Auto-generated method stub
-		
+		if(Controller.getInstance().getMainFrame()!= null)
+			Controller.getInstance().getMainFrame().getDataPanel().refresh();;
 	}
 
 	@Override

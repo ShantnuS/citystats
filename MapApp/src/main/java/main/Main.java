@@ -6,6 +6,7 @@ import javax.swing.SwingUtilities;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import controller.Controller;
 import controller.RIKGetter;
+import controller.SQLManager;
 
 public class Main {
 	
@@ -32,7 +33,12 @@ public class Main {
         Controller controller = Controller.getInstance();
         controller.setRIK(region, appId, accessKey);
         controller.startClient();
-        controller.startUI();
+        
+		new Thread(){
+		    public void run() {
+		    	controller.startUI();
+		    }
+		}.start();
 	}
 	
 }

@@ -29,8 +29,8 @@ public class MainFrame extends JFrame {
 		
 		this.setTitle("MapApp - CityStats");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(1920/2, 1080/2);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		this.setSize(1920/2, 1080/2);
 		this.setLayout(new BorderLayout());
 		this.init();
 	}
@@ -54,6 +54,10 @@ public class MainFrame extends JFrame {
 		
 		this.setVisible(true);
 		this.repaint();
+	}
+	
+	public DataPanel getDataPanel(){
+		return this.dataPanel;
 	}
 	
 	public MapPanel getMapPanel(){
