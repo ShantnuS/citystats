@@ -16,21 +16,28 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
+import org.jfree.data.time.Minute;
+import org.jfree.data.time.Second;
+import org.jfree.data.time.TimeSeries;
+import org.jfree.data.time.TimeSeriesCollection;
+import org.jfree.data.xy.XYDataset;
 
 import controller.Controller;
 import controller.ETCHelper;
 import controller.SQLManager;
+import model.CSData;
 import model.TTNDevice;
 
 public class DataPanel extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	
-	String[] views = {"Bar graph", "Scatter graph", "Pie chart", "Table view", "All views"};
+	String[] views = {"Bar graph", "Line graph", "Pie chart", "Table view", "All views"};
 	
 	JComboBox<String> viewBox;
 	JComboBox<String> deviceBox;
@@ -128,8 +135,23 @@ public class DataPanel extends JPanel{
 		}
 		
 		else if(view.equals(views[1])){
-			System.err.println("Creating scatter graph");
-			graphPanel.setBackground(Color.orange);
+			System.err.println("Creating line graph");
+			
+			JFreeChart lineChart = ChartFactory.createTimeSeriesChart(
+					"Time Series Graph - " + (String) variableBox.getSelectedItem(), // Chart
+					"Date", // X-Axis Label
+					(String) variableBox.getSelectedItem(), // Y-Axis Label
+					createLineDataset());
+
+			//Changes background color
+			XYPlot plot = (XYPlot)lineChart.getPlot();
+			plot.setBackgroundPaint(new Color(255,228,196));
+
+			ChartPanel chartPanel = new ChartPanel(lineChart);
+   
+			graphPanel.add(chartPanel, BorderLayout.CENTER);
+			chartPanel.setPreferredSize(graphPanel.getSize());  
+			graphPanel.setBackground(Color.black);
 			Controller.getInstance().getMainFrame().repaint();
 		}
 		
@@ -232,7 +254,7 @@ public class DataPanel extends JPanel{
 	     return dataset;
 	 }
 	 
-	 private static PieDataset createPieDataset( ) {
+	 private PieDataset createPieDataset(){
 		 DefaultPieDataset dataset = new DefaultPieDataset( );
 		 HashMap<String, TTNDevice> devices = Controller.getInstance().getAllDevices();
 		 
@@ -240,7 +262,34 @@ public class DataPanel extends JPanel{
 			 dataset.setValue(e, devices.get(e).getAllData().size());
 		 }
 		 
-		 return dataset;         
+		 return dataset;
+	}
+	 
+	 private XYDataset createLineDataset() {
+		 TimeSeriesCollection dataset = new TimeSeriesCollection();
+		 String variable = (String) variableBox.getSelectedItem();           
+         TTNDevice device = Controller.getInstance().getDevice((String) deviceBox.getSelectedItem());
+         TimeSeries series = new TimeSeries(variable);
+         int second,minute,hour,day,month,year;
+         String[] parts;
+         double value;
+         for(CSData d: device.getAllData()){
+        	 //Extract time and date in correct format
+        	 parts = d.getDate().split("@");
+        	 second = Integer.parseInt(parts[0].split(":")[2]);
+        	 minute = Integer.parseInt(parts[0].split(":")[1]);
+        	 hour = Integer.parseInt(parts[0].split(":")[0]);
+        	 day = Integer.parseInt(parts[1].split("-")[2]);
+        	 month = Integer.parseInt(parts[1].split("-")[1]);
+        	 year = Integer.parseInt(parts[1].split("-")[0]);
+        	 
+        	 value = ETCHelper.getValueFromName(d, variable);
+        	 if(value != 0)
+        		 series.add(new Second(second,minute,hour,day,month,year), value);
+         }
+		 
+         dataset.addSeries(series);
+		 return dataset;
 	 }
 	 
 	 public void refresh(){
