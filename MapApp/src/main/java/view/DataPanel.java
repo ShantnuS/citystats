@@ -11,6 +11,8 @@ import java.util.HashMap;
 
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -51,12 +53,11 @@ public class DataPanel extends JPanel{
 	JPanel panel2;
 	JPanel panel4;
 	
-	JFreeChart barChart;
-	JFreeChart pieChart;
 	JFreeChart lineChart;
 	ChartPanel barChartPanel;
 	ChartPanel pieChartPanel;
 	ChartPanel lineChartPanel;
+	JScrollPane scrollPane;
 	
 	JPanel allPanel;
 
@@ -162,7 +163,10 @@ public class DataPanel extends JPanel{
 		}
 
 		else if(view.equals(views[3])){
-			System.err.println("Creating table view ");
+			//TABLE VIEW
+			scrollPane = new JScrollPane(createTable()); 
+			graphPanel.add(scrollPane, BorderLayout.CENTER);
+			scrollPane.setPreferredSize(graphPanel.getSize());  
 			graphPanel.setBackground(Color.green);
 			Controller.getInstance().getMainFrame().repaint();
 		}
@@ -196,19 +200,19 @@ public class DataPanel extends JPanel{
 			barChartPanel = new ChartPanel(createBarChart());
 			pieChartPanel = new ChartPanel(createPieChart());
 			lineChartPanel = new ChartPanel(lineChart);
+			scrollPane = new JScrollPane(createTable()); 
 			
 
 			panel1.add(barChartPanel, BorderLayout.CENTER);
 			panel2.add(pieChartPanel, BorderLayout.CENTER);
 			panel3.add(lineChartPanel, BorderLayout.CENTER);
-			//panel4.add(barChartPanel);	
+			panel4.add(scrollPane,BorderLayout.CENTER);	
 
 			allPanel.add(panel1);
 			allPanel.add(panel2);
 			allPanel.add(panel3);
 			allPanel.add(panel4);
 
-			//barChartPanel.setPreferredSize(panel1.getSize());
 			allPanel.setPreferredSize(graphPanel.getSize());
 			graphPanel.add(allPanel, BorderLayout.CENTER);
 			Controller.getInstance().getMainFrame().repaint();
@@ -247,6 +251,19 @@ public class DataPanel extends JPanel{
 				false);
 	}
 
+	private JTable createTable(){
+		System.err.println("Creating table view ");
+		TTNDevice device = Controller.getInstance().getDevice((String) deviceBox.getSelectedItem());
+		String[][] data = new String[device.getAllData().size()][];
+		String[] titles = {"Date and Time", "Temperature", "Light", "Humidity", "Pressure", "Altitude", "Tilt", "Voltage"};
+		int count = 0;
+		for(CSData d: device.getAllData()){
+			data[count] = d.getAsStringArray();
+			count++;
+		}
+		return new JTable(data,titles);    
+	}
+	
 	private CategoryDataset createBarDataset( ) {
 		final String average = "Average";        
 		final String latest = "Latest";  

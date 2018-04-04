@@ -193,4 +193,10 @@ public class CSData {
 		}
 		return temp;
 	}
+	
+	public String[] getAsStringArray(){
+		//{"Date and Time", "Temperature", "Light", "Humidity", "Pressure", "Altitude", "Tilt", "Voltage"};
+		String[] array = {getDate(), getTemperature(), getLight(), getHumidity(), getPressure(), getAltitude(), getTilt(), getVoltage()};
+		return array;
+	}
 }
