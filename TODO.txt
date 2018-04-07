@@ -20,8 +20,6 @@ Diagrams
 
 
 Current Tasks Remaining:
-- Add SQL fetch to MapApp
-- Create Graph Views on MapApp
 - Add dynamic map icons on MapApp
 - Add OpenWeatherMap marker on MapApp
 - Examine altitude and pressure measurements on LoPy
