@@ -3,13 +3,20 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
+import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -44,7 +51,8 @@ public class DataPanel extends JPanel{
 	JComboBox<String> viewBox;
 	JComboBox<String> deviceBox;
 	JComboBox<String> variableBox;
-
+	JButton saveButton;
+	
 	JPanel settingsPanel;
 	JPanel graphPanel;
 
@@ -67,6 +75,7 @@ public class DataPanel extends JPanel{
 		deviceBox = new JComboBox<String>(Controller.getInstance().getDeviceIDs());
 		variableBox = new JComboBox<String>(Controller.getInstance().getVariables());
 		viewBox = new JComboBox<String>(views);
+		saveButton = new JButton("Save as image...");
 		settingsPanel = new JPanel();
 		graphPanel = new JPanel();
 
@@ -88,10 +97,27 @@ public class DataPanel extends JPanel{
 				generateGraphPanel((String) viewBox.getSelectedItem());
 			}
 		});	
+		
+		saveButton.addActionListener (new ActionListener () {
+			public void actionPerformed(ActionEvent e) {
+				new Thread(){
+					public void run() {
+						try {
+							saveImage();
+						} catch (IOException e) {
+							System.err.println("Could not save as image!");
+							e.printStackTrace();
+						}
+					}
+				}.start();
+			}
+		});	
+		
 		settingsPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		settingsPanel.add(deviceBox);
 		settingsPanel.add(variableBox);
 		settingsPanel.add(viewBox);
+		settingsPanel.add(saveButton);
 
 		graphPanel.setBackground(Color.orange);
 		graphPanel.setLayout(new BorderLayout());
@@ -322,6 +348,22 @@ public class DataPanel extends JPanel{
 		return dataset;
 	}
 
+	public void saveImage() throws IOException{
+		BufferedImage image = new BufferedImage(graphPanel.getWidth(), graphPanel.getHeight(), BufferedImage.TYPE_INT_ARGB);
+		Graphics g = image.getGraphics();
+		graphPanel.paint(g);
+		
+		String directory = System.getProperty("user.home");
+    	JFileChooser myFileChooser = new JFileChooser(directory + "\\Desktop");
+    	
+    	int retVal = myFileChooser.showSaveDialog(null);
+    	if(retVal==JFileChooser.APPROVE_OPTION){
+    		File myImage = new File(myFileChooser.getSelectedFile()+".png");
+    	    ImageIO.write(image, "png", myImage);
+    	    JOptionPane.showMessageDialog(null,"Image saved successfully!");
+    	 }
+	}
+	
 	public void refresh(){
 		if(initialised)
 			generateGraphPanel((String) viewBox.getSelectedItem());
