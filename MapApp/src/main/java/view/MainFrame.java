@@ -2,14 +2,8 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-
-import com.teamdev.jxmaps.LatLng;
 
 import controller.Controller;
 

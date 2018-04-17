@@ -15,6 +15,7 @@ import com.teamdev.jxmaps.swing.MapView;
 
 import controller.Controller;
 import controller.ETCHelper;
+import model.OWMDevice;
 import model.TTNDevice;
 
 public class MapPanel extends MapView {
@@ -62,9 +63,25 @@ public class MapPanel extends MapView {
         marker.addEventListener("click", new MapMouseEvent() {
             @Override
             public void onEvent(MouseEvent mouseEvent) {
-                // Removing marker from the map
             	if(device.getLatestData()!= null)
             		infoWindow.setContent(device.getLatestData().getFormatted());
+            	infoWindow.open(map, marker);
+            }
+        });
+	}
+	
+	public void createMarkerOWM(LatLng latlng, OWMDevice device){
+		Marker marker = new Marker(map);
+        marker.setPosition(latlng);
+        final InfoWindow infoWindow = new InfoWindow(map);
+        
+        device.setMarker(marker);
+        device.setInfoWindow(infoWindow);
+        
+        marker.addEventListener("click", new MapMouseEvent() {
+            @Override
+            public void onEvent(MouseEvent mouseEvent) {
+            		infoWindow.setContent(device.getFormatted());
             	infoWindow.open(map, marker);
             }
         });

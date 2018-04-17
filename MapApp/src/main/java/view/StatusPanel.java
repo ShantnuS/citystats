@@ -2,14 +2,9 @@ package view;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import controller.Controller;
 
 public class StatusPanel extends JPanel {
 

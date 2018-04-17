@@ -3,13 +3,13 @@ package controller;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.teamdev.jxmaps.Icon;
 import com.teamdev.jxmaps.LatLng;
 import com.teamdev.jxmaps.Size;
 
+import model.OWMDevice;
 import model.TTNClient;
 import model.TTNDevice;
 import view.MainFrame;
@@ -35,7 +35,7 @@ public class Controller {
 		} catch (Exception e) {
 			System.err.println("Could not create devices from file!");
 			e.printStackTrace();
-		}
+		}	
 		
 		System.out.println("Controller is ready!");
 	}
@@ -85,6 +85,12 @@ public class Controller {
 			this.addDevice(device);
 		} 
 		br.close();
+	}
+	
+	public void initOWM(){
+		OWMDevice owmSoton = new OWMDevice("Southampton");
+		LatLng latlng = new LatLng(Double.parseDouble(owmSoton.getLatitude()),Double.parseDouble(owmSoton.getLongitude()));
+		frame.getMapPanel().createMarkerOWM(latlng, owmSoton);
 	}
 	
 	public void addDevice(TTNDevice device) {
