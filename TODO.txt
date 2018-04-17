@@ -21,7 +21,6 @@ Diagrams
 
 Current Tasks Remaining:
 - Add dynamic map icons on MapApp
-- Add OpenWeatherMap marker on MapApp
 - Examine altitude and pressure measurements on LoPy
 - Use input stream if possible and make JAR Files
 - Create a bunch of unit tests, etc. 
