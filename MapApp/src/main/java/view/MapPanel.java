@@ -1,5 +1,7 @@
 package view;
 
+import java.io.IOException;
+
 import com.teamdev.jxmaps.ControlPosition;
 import com.teamdev.jxmaps.InfoWindow;
 import com.teamdev.jxmaps.LatLng;
@@ -44,6 +46,13 @@ public class MapPanel extends MapView {
                     map.setCenter(Controller.getInstance().getInitLatLng());
                     map.setZoom(16.0);    
                     Controller.getInstance().initMarkers();
+                    
+                    try {
+						Controller.getInstance().initOWM();
+					} catch (IOException e) {
+						System.err.println("Could not initOWM!");
+						e.printStackTrace();
+					}
                     
                     recenter();
                 }

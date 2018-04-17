@@ -3,6 +3,7 @@ package controller;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 
 import com.teamdev.jxmaps.Icon;
@@ -87,10 +88,14 @@ public class Controller {
 		br.close();
 	}
 	
-	public void initOWM(){
-		OWMDevice owmSoton = new OWMDevice("Southampton");
-		LatLng latlng = new LatLng(Double.parseDouble(owmSoton.getLatitude()),Double.parseDouble(owmSoton.getLongitude()));
-		frame.getMapPanel().createMarkerOWM(latlng, owmSoton);
+	public void initOWM() throws IOException{
+		OWMDevice device;
+		LatLng latlng;
+		for(String city : OWMCityList.getCities()){
+			device = new OWMDevice(city);
+			latlng = new LatLng(Double.parseDouble(device.getLatitude()),Double.parseDouble(device.getLongitude()));
+			frame.getMapPanel().createMarkerOWM(latlng, device);
+		}
 	}
 	
 	public void addDevice(TTNDevice device) {

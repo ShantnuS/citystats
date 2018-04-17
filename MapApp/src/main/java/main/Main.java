@@ -36,7 +36,6 @@ public class Main {
 		new Thread(){
 		    public void run() {
 		    	controller.startUI();
-		    	controller.initOWM();
 		    }
 		}.start();
 	}
