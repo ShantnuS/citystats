@@ -1,8 +1,10 @@
 package view;
 
+import java.io.File;
 import java.io.IOException;
 
 import com.teamdev.jxmaps.ControlPosition;
+import com.teamdev.jxmaps.Icon;
 import com.teamdev.jxmaps.InfoWindow;
 import com.teamdev.jxmaps.LatLng;
 import com.teamdev.jxmaps.Map;
@@ -13,6 +15,7 @@ import com.teamdev.jxmaps.MapStatus;
 import com.teamdev.jxmaps.MapTypeControlOptions;
 import com.teamdev.jxmaps.Marker;
 import com.teamdev.jxmaps.MouseEvent;
+import com.teamdev.jxmaps.Size;
 import com.teamdev.jxmaps.swing.MapView;
 
 import controller.Controller;
@@ -61,8 +64,13 @@ public class MapPanel extends MapView {
     }
 	
 	public void createMarker(LatLng latlng, TTNDevice device){
+		Icon icon = new Icon();
+		icon.loadFromFile(new File("res//assets//circle.png"));
+        icon.setScaledSize(new Size(25,25));
+        
         Marker marker = new Marker(map);
         marker.setPosition(latlng);
+        marker.setIcon(icon);
         final InfoWindow infoWindow = new InfoWindow(map);
         infoWindow.setContent(ETCHelper.getTempFormatted(device.getDeviceID()));
         //infoWindow.open(map, marker);
@@ -80,8 +88,13 @@ public class MapPanel extends MapView {
 	}
 	
 	public void createMarkerOWM(LatLng latlng, OWMDevice device){
+		Icon icon = new Icon();
+		icon.loadFromFile(new File("res//assets//square.png"));
+        icon.setScaledSize(new Size(25,25));
+		
 		Marker marker = new Marker(map);
         marker.setPosition(latlng);
+        marker.setIcon(icon);
         final InfoWindow infoWindow = new InfoWindow(map);
         
         device.setMarker(marker);

@@ -140,7 +140,7 @@ public class Controller {
 	//Update marker upon new data receiving
 	public void updateMarker(TTNDevice device){
 		//Set icon of the marker
-		this.setIcon(device);
+		//this.setIcon(device);
 		//Update marker on map
 		frame.getMapPanel().updateMarker(device);
 	}
