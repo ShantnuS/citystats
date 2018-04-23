@@ -14,7 +14,7 @@ public class ETCHelper {
 		temp += "<br><b>Light: </b>" + "none";
 		temp += "<br><b>Humidity: </b>" + "none";
 		temp += "<br><b>Pressure: </b>" + "none";
-		temp += "<br><b>Altitude: </b>" + "none";
+		//temp += "<br><b>Altitude: </b>" + "none";
 		temp += "<br><b>Tilt: </b>" + "none";
 		temp += "<br><b>Voltage: </b>" + "none";
 		

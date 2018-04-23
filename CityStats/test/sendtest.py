@@ -35,6 +35,6 @@ app_eui = binascii.unhexlify('70B3D57ED0008813')
 app_key = binascii.unhexlify('FDFDA4AB9CB96B494BEDC19591B6746F')
 
 
-data = "t31.58:h34.97:l516:p101239.00:i-9.25:v4.73"
+data = "t31.58:h34.97:l516:p1012.39:i-9.25:v4.73"
 connectOTAA(app_eui, app_key)
 sendData(data)

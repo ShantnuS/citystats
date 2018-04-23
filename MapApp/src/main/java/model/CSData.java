@@ -163,8 +163,8 @@ public class CSData {
 							break;
 		case "Pressure": 	temp += "<br><b>Pressure: </b>" + this.pressure + UnitManager.PRESSURE;
 							break;
-		case "Altitude": 	temp += "<br><b>Altitude: </b>" + this.altitude + UnitManager.ALTITUDE;
-							break;
+		//case "Altitude": 	temp += "<br><b>Altitude: </b>" + this.altitude + UnitManager.ALTITUDE;
+							//break;
 		case "Tilt": 		temp += "<br><b>Tilt: </b>" + this.tilt + UnitManager.TILT;
 							break;
 		case "Voltage": 	temp += "<br><b>Voltage: </b>" + this.voltage + UnitManager.VOLTAGE;
@@ -184,8 +184,8 @@ public class CSData {
 							break;
 		case "Pressure": 	temp = this.pressure;
 							break;
-		case "Altitude": 	temp = this.altitude;
-							break;
+		//case "Altitude": 	temp = this.altitude;
+							//break;
 		case "Tilt": 		temp = this.tilt;
 							break;
 		case "Voltage": 	temp = this.voltage;
@@ -196,7 +196,8 @@ public class CSData {
 	
 	public String[] getAsStringArray(){
 		//{"Date and Time", "Temperature", "Light", "Humidity", "Pressure", "Altitude", "Tilt", "Voltage"};
-		String[] array = {getDate(), getTemperature(), getLight(), getHumidity(), getPressure(), getAltitude(), getTilt(), getVoltage()};
+		//String[] array = {getDate(), getTemperature(), getLight(), getHumidity(), getPressure(), getAltitude(), getTilt(), getVoltage()};
+		String[] array = {getDate(), getTemperature(), getLight(), getHumidity(), getPressure(), getTilt(), getVoltage()};
 		return array;
 	}
 }

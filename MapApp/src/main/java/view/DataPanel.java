@@ -280,7 +280,8 @@ public class DataPanel extends JPanel{
 		System.err.println("Creating table view ");
 		TTNDevice device = Controller.getInstance().getDevice((String) deviceBox.getSelectedItem());
 		String[][] data = new String[device.getAllData().size()][];
-		String[] titles = {"Date and Time", "Temperature", "Light", "Humidity", "Pressure", "Altitude", "Tilt", "Voltage"};
+		//String[] titles = {"Date and Time", "Temperature", "Light", "Humidity", "Pressure", "Altitude", "Tilt", "Voltage"};
+		String[] titles = {"Date and Time", "Temperature", "Light", "Humidity", "Pressure", "Tilt", "Voltage"};
 		int count = 0;
 		for(CSData d: device.getAllData()){
 			data[count] = d.getAsStringArray();

@@ -24,7 +24,7 @@ public class Controller {
 	MainFrame frame;
 	HashMap<String, TTNDevice> devices;
 	boolean status; //true if connected
-	String[] variables = {"Temperature", "Light", "Humidity", "Pressure", "Altitude", "Tilt", "Voltage"};
+	String[] variables = {"Temperature", "Light", "Humidity", "Pressure", "Tilt", "Voltage"};
 	String currentVariable;
 	
 	private Controller() {
