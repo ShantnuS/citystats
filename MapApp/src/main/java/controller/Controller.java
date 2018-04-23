@@ -84,6 +84,7 @@ public class Controller {
 			String longitude = parts[2];
 			TTNDevice device = new TTNDevice(deviceID, latitude, longitude);
 			this.addDevice(device);
+			System.out.println("Added device: " + deviceID);
 		} 
 		br.close();
 	}
@@ -200,11 +201,11 @@ public class Controller {
 		frame.getStatusPanel().setLastDataLabel(text);
 	}
 	
-	public void setIcon(TTNDevice device){
+/*	public void setIcon(TTNDevice device){
 		Icon icon = new Icon();
-        icon.loadFromFile(new File("res//assets//sun.png"));
+        icon.loadFromFile(new File("res//assets//circle.png"));
         icon.setScaledSize(new Size(25,25));
 		device.getMarker().setIcon(icon);
-	}
+	}*/
 	
 }

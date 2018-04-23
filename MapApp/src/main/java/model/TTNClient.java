@@ -59,7 +59,7 @@ public class TTNClient {
 		String payload = "none";
     	String devID = message.getDevId();
     	Metadata metaData = message.getMetadata();
-    		
+    	
     	//Decode payload
 		try {
 			payload = new String(bytes, "UTF-8");
@@ -68,8 +68,9 @@ public class TTNClient {
 			System.err.println("Could not decode payload!");
 			e.printStackTrace();
 		}
-
+		
 		TTNDevice device = Controller.getInstance().getDevice(devID);
+		
 		CSData csData = DataParser.parseData(device, payload, metaData.getTime());
 		device.setLatestData(csData);
 		

@@ -24,19 +24,19 @@ public class ETCHelper {
 	public static double getValueFromName(TTNDevice device, String variable){
 		double value =0;
 		switch(variable){
-		case "Temperature": if(!device.getLatestData().getTemperature().equals("none")) value=Double.parseDouble(device.getLatestData().getTemperature().replaceAll("\\*", "")); 
+		case "Temperature": if(!device.getLatestData().getTemperature().replaceAll("\\*", "").equals("none")) value=Double.parseDouble(device.getLatestData().getTemperature().replaceAll("\\*", "")); 
 		break;
-		case "Humidity": if(!device.getLatestData().getHumidity().equals("none")) value=Double.parseDouble(device.getLatestData().getHumidity().replaceAll("\\*", "")); 
+		case "Humidity": if(!device.getLatestData().getHumidity().replaceAll("\\*", "").equals("none")) value=Double.parseDouble(device.getLatestData().getHumidity().replaceAll("\\*", "")); 
 		break;
-		case "Light": if(!device.getLatestData().getLight().equals("none")) value=Double.parseDouble(device.getLatestData().getLight().replaceAll("\\*", "")); 
+		case "Light": if(!device.getLatestData().getLight().replaceAll("\\*", "").equals("none")) value=Double.parseDouble(device.getLatestData().getLight().replaceAll("\\*", "")); 
 		break;
-		case "Pressure": if(!device.getLatestData().getPressure().equals("none")) value=Double.parseDouble(device.getLatestData().getPressure().replaceAll("\\*", "")); 
+		case "Pressure": if(!device.getLatestData().getPressure().replaceAll("\\*", "").equals("none")) value=Double.parseDouble(device.getLatestData().getPressure().replaceAll("\\*", "")); 
 		break;
-		case "Altitude": if(!device.getLatestData().getAltitude().equals("none")) value=Double.parseDouble(device.getLatestData().getAltitude().replaceAll("\\*", "")); 
+		case "Altitude": if(!device.getLatestData().getAltitude().replaceAll("\\*", "").equals("none")) value=Double.parseDouble(device.getLatestData().getAltitude().replaceAll("\\*", "")); 
 		break;
-		case "Tilt": if(!device.getLatestData().getTilt().equals("none")) value=Double.parseDouble(device.getLatestData().getTilt().replaceAll("\\*", "")); 
+		case "Tilt": if(!device.getLatestData().getTilt().replaceAll("\\*", "").equals("none")) value=Double.parseDouble(device.getLatestData().getTilt().replaceAll("\\*", "")); 
 		break;
-		case "Voltage": if(!device.getLatestData().getVoltage().equals("none")) value=Double.parseDouble(device.getLatestData().getVoltage().replaceAll("\\*", "")); 
+		case "Voltage": if(!device.getLatestData().getVoltage().replaceAll("\\*", "").equals("none")) value=Double.parseDouble(device.getLatestData().getVoltage().replaceAll("\\*", "")); 
 		break;
 		}
 		
@@ -46,19 +46,19 @@ public class ETCHelper {
 	public static double getValueFromName(CSData data, String variable){
 		double value =0;
 		switch(variable){
-		case "Temperature": if(!data.getTemperature().equals("none")) value=Double.parseDouble(data.getTemperature().replaceAll("\\*", "")); 
+		case "Temperature": if(!data.getTemperature().replaceAll("\\*", "").equals("none")) value=Double.parseDouble(data.getTemperature().replaceAll("\\*", "")); 
 		break;
-		case "Humidity": if(!data.getHumidity().equals("none")) value=Double.parseDouble(data.getHumidity().replaceAll("\\*", "")); 
+		case "Humidity": if(!data.getHumidity().replaceAll("\\*", "").equals("none")) value=Double.parseDouble(data.getHumidity().replaceAll("\\*", "")); 
 		break;
-		case "Light": if(!data.getLight().equals("none")) value=Double.parseDouble(data.getLight().replaceAll("\\*", "")); 
+		case "Light": if(!data.getLight().replaceAll("\\*", "").equals("none")) value=Double.parseDouble(data.getLight().replaceAll("\\*", "")); 
 		break;
-		case "Pressure": if(!data.getPressure().equals("none")) value=Double.parseDouble(data.getPressure().replaceAll("\\*", "")); 
+		case "Pressure": if(!data.getPressure().replaceAll("\\*", "").equals("none")) value=Double.parseDouble(data.getPressure().replaceAll("\\*", "")); 
 		break;
-		case "Altitude": if(!data.getAltitude().equals("none")) value=Double.parseDouble(data.getAltitude().replaceAll("\\*", "")); 
+		case "Altitude": if(!data.getAltitude().replaceAll("\\*", "").equals("none")) value=Double.parseDouble(data.getAltitude().replaceAll("\\*", "")); 
 		break;
-		case "Tilt": if(!data.getTilt().equals("none")) value=Double.parseDouble(data.getTilt().replaceAll("\\*", "")); 
+		case "Tilt": if(!data.getTilt().replaceAll("\\*", "").equals("none")) value=Double.parseDouble(data.getTilt().replaceAll("\\*", "")); 
 		break;
-		case "Voltage": if(!data.getVoltage().equals("none")) value=Double.parseDouble(data.getVoltage().replaceAll("\\*", "")); 
+		case "Voltage": if(!data.getVoltage().replaceAll("\\*", "").equals("none")) value=Double.parseDouble(data.getVoltage().replaceAll("\\*", "")); 
 		break;
 		}
 		
@@ -70,49 +70,49 @@ public class ETCHelper {
 		int count = 0;
 		switch(variable){
 		case "Temperature": for(CSData d: device.getAllData()){
-			if(d.getTemperature().equals("none")==false){
+			if(!(d.getTemperature().replaceAll("\\*", "").equals("none"))){
 				value+=Double.parseDouble(d.getTemperature().replaceAll("\\*", ""));
 				count++;
 			}
 		}
 		break;
 		case "Humidity": for(CSData d: device.getAllData()){
-			if(!(d.getHumidity().equals("none"))){
+			if(!(d.getHumidity().replaceAll("\\*", "").equals("none"))){
 				value+=Double.parseDouble(d.getHumidity().replaceAll("\\*", ""));
 				count++;
 			}
 		}
 		break;
 		case "Light": for(CSData d: device.getAllData()){
-			if(!(d.getLight().equals("none"))){
+			if(!(d.getLight().replaceAll("\\*", "").equals("none"))){
 				value+=Double.parseDouble(d.getLight().replaceAll("\\*", ""));
 				count++;
 			}
 		}
 		break;
 		case "Pressure": for(CSData d: device.getAllData()){
-			if(!d.getPressure().equals("none")){
+			if(!d.getPressure().replaceAll("\\*", "").equals("none")){
 				value+=Double.parseDouble(d.getPressure().replaceAll("\\*", ""));
 				count++;
 			}
 		}
 		break;
 		case "Altitude": for(CSData d: device.getAllData()){
-			if(!d.getAltitude().equals("none")){
+			if(!d.getAltitude().replaceAll("\\*", "").equals("none")){
 				value+=Double.parseDouble(d.getAltitude().replaceAll("\\*", ""));
 				count++;
 			}
 		}
 		break;
 		case "Tilt": for(CSData d: device.getAllData()){
-			if(!d.getTilt().equals("none")){
+			if(!d.getTilt().replaceAll("\\*", "").equals("none")){
 				value+=Double.parseDouble(d.getTilt().replaceAll("\\*", ""));
 				count++;
 			}
 		}
 		break;
 		case "Voltage": for(CSData d: device.getAllData()){
-			if(!d.getVoltage().equals("none")){
+			if(!d.getVoltage().replaceAll("\\*", "").equals("none")){
 				value+=Double.parseDouble(d.getVoltage().replaceAll("\\*", ""));
 				count++;
 			}
