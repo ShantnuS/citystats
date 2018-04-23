@@ -24,7 +24,6 @@ public class TTNDevice {
 	
 	public void setLatestData(CSData latestData) {
 		this.latestData = latestData;
-		this.addData(latestData);
 	}
 	
 	public void addData(CSData data) {
