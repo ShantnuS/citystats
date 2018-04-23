@@ -88,6 +88,7 @@ def readHumi():
 
 def readPrsr():
     prsr = mpp.pressure()
+    prsr = prsr/100
     return prsr
 
 def readAlti():
@@ -141,7 +142,7 @@ temp = otemp = 0 #Called "t"
 humi = ohumi = 0 #Called "h"
 lght = olght = 0 #Called "l"
 prsr = oprsr = 0 #Called "p"
-alti = oalti = 0 #Called "a"
+#alti = oalti = 0 #Called "a"
 tilt = otilt = 0 #Called "i"
 volt = 0 #Called "v"
 
@@ -165,9 +166,11 @@ while True:
     if isSigDiff(prsr, oprsr, 10.0):
         output += "p" + "{0:.2f}".format(prsr) + ":"
     #Altitude
+    '''
     alti = readAlti()
     if isSigDiff(alti, oalti, 10.0):
         output += "a" + "{0:.2f}".format(alti) + ":"
+    '''
     #Tilt
     tilt = readTilt()
     if isSigDiff(tilt, otilt, 10.0):
@@ -189,7 +192,7 @@ while True:
         ohumi = humi
         olght = lght
         oprsr = prsr
-        oalti = alti
+        #oalti = alti
         otilt = tilt
     else:
         print("No change...")
