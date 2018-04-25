@@ -133,9 +133,9 @@ app_eui = binascii.unhexlify('70B3D57ED0008813')
 app_key = binascii.unhexlify('FDFDA4AB9CB96B494BEDC19591B6746F')
 
 #This is needed for ABP (but is prone to changing)
-dAdd = binascii.unhexlify('26012338')
-netSKey = binascii.unhexlify('B6E642E16BE7FB9CAEC868D34912A918')
-appSKey = binascii.unhexlify('0C8FB72F0851D3DEE8BD07095B701A30')
+dAdd = binascii.unhexlify('2601223B')
+netSKey = binascii.unhexlify('167FC4ABA47B91E6A837765E884320FF')
+appSKey = binascii.unhexlify('1A17A04EAEF92C0A3D149FB000300302')
 
 #Measure temperature, humidity, light, pressure, altitude and tilt
 temp = otemp = 0 #Called "t"
