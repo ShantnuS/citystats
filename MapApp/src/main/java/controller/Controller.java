@@ -201,6 +201,10 @@ public class Controller {
 		frame.getStatusPanel().setLastDataLabel(text);
 	}
 	
+	public void refreshDataPanel(){
+		frame.getDataPanel().refresh();
+	}
+	
 /*	public void setIcon(TTNDevice device){
 		Icon icon = new Icon();
         icon.loadFromFile(new File("res//assets//circle.png"));

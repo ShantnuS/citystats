@@ -130,7 +130,7 @@ pycom.heartbeat(False)
 #Set app eui and key
 #This is needed for OTAA
 app_eui = binascii.unhexlify('70B3D57ED0008813')
-app_key = binascii.unhexlify('FDFDA4AB9CB96B494BEDC19591B6746F')
+app_key = binascii.unhexlify('2BDDA0914A4F547CF15201D5D9F6E7B7')
 
 #This is needed for ABP (but is prone to changing)
 dAdd = binascii.unhexlify('2601223B')

@@ -76,6 +76,7 @@ public class TTNClient {
 		
 		Controller.getInstance().updateMarker(device); //update this
 		Controller.getInstance().updateLastData("Last Data: " + devID + " " + csData.getDate());
+		Controller.getInstance().refreshDataPanel();
 	}
 	
 	public static void passConnection(Connection connection) {
@@ -88,7 +89,7 @@ public class TTNClient {
 		System.err.println(error);
 		System.err.println(error.getMessage());
 		System.out.println("An error occured!");
-		Controller.getInstance().setStatus(true);
+		//Controller.getInstance().setStatus(true);
 	}
 	
 	public static void passActivation(String devId, ActivationMessage data) {

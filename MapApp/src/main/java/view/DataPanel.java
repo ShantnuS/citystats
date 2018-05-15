@@ -83,7 +83,14 @@ public class DataPanel extends JPanel{
 		deviceBox.addActionListener (new ActionListener () {
 			public void actionPerformed(ActionEvent e) {
 				TTNDevice device = Controller.getInstance().getDevice((String) deviceBox.getSelectedItem());
-				generateGraphPanel(device, (String) variableBox.getSelectedItem(),(String) viewBox.getSelectedItem());
+				try {
+					getSingleDeviceData(device);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				refresh();
+				//generateGraphPanel(device, (String) variableBox.getSelectedItem(),(String) viewBox.getSelectedItem());
 			}
 		});
 
@@ -158,6 +165,16 @@ public class DataPanel extends JPanel{
 			d = Controller.getInstance().getAllDevices().get(id);
 			SQLManager.getDeviceData(d);
 		}
+	}
+	
+	public void getSingleDeviceData(String id) throws IOException{
+		TTNDevice d;
+		d = Controller.getInstance().getAllDevices().get(id);
+		SQLManager.getDeviceData(d);
+	}
+	
+	public void getSingleDeviceData(TTNDevice d) throws IOException{
+		SQLManager.getDeviceData(d);
 	}
 
 	//Displays the dataset in graph
