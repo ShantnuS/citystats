@@ -78,6 +78,8 @@ public class DataPanel extends JPanel{
 		settingsPanel = new JPanel();
 		graphPanel = new JPanel();
 
+		deviceBox.setSelectedIndex(Controller.getInstance().getDeviceIDs().length-1);
+		
 		deviceBox.addActionListener (new ActionListener () {
 			public void actionPerformed(ActionEvent e) {
 				TTNDevice device = Controller.getInstance().getDevice((String) deviceBox.getSelectedItem());
@@ -87,13 +89,13 @@ public class DataPanel extends JPanel{
 
 		variableBox.addActionListener (new ActionListener () {
 			public void actionPerformed(ActionEvent e) {
-				generateGraphPanel((String) viewBox.getSelectedItem());
+				generateGraphCharts((String) viewBox.getSelectedItem());
 			}
 		});
 
 		viewBox.addActionListener (new ActionListener () {
 			public void actionPerformed(ActionEvent e) {
-				generateGraphPanel((String) viewBox.getSelectedItem());
+				generateGraphCharts((String) viewBox.getSelectedItem());
 			}
 		});	
 		
@@ -140,17 +142,26 @@ public class DataPanel extends JPanel{
 		new Thread(){
 			public void run() {
 				try {
-					SQLManager.getDeviceData(device);
-					generateGraphPanel(view);
+					//SQLManager.getDeviceData(device);
+					getAllDeviceData();
+					generateGraphCharts(view);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
 		}.start();
 	}
+	
+	public void getAllDeviceData() throws IOException{
+		TTNDevice d;
+		for(String id: Controller.getInstance().getAllDevices().keySet()){
+			d = Controller.getInstance().getAllDevices().get(id);
+			SQLManager.getDeviceData(d);
+		}
+	}
 
 	//Displays the dataset in graph
-	public void generateGraphPanel(String view){
+	public void generateGraphCharts(String view){
 		System.out.println("Generating from view");
 		graphPanel.removeAll();
 		
@@ -366,6 +377,6 @@ public class DataPanel extends JPanel{
 	
 	public void refresh(){
 		if(initialised)
-			generateGraphPanel((String) viewBox.getSelectedItem());
+			generateGraphCharts((String) viewBox.getSelectedItem());
 	}
 }

@@ -16,6 +16,7 @@ public class SQLManager {
 	static final String DB_URL = "jdbc:mysql://csvps.shantnu.me/citystats";
 
 	public static void getDeviceData(TTNDevice device) throws IOException{
+		System.out.println("Getting SQL data for: " + device.getDeviceID());
 		String USER = SQLKeyGetter.getUsername();
 		String PASS = SQLKeyGetter.getPassword();
 

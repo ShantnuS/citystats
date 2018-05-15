@@ -87,7 +87,8 @@ public class TTNClient {
 		System.out.println("Client Error!");
 		System.err.println(error);
 		System.err.println(error.getMessage());
-		Controller.getInstance().setStatus(false);
+		System.out.println("An error occured!");
+		Controller.getInstance().setStatus(true);
 	}
 	
 	public static void passActivation(String devId, ActivationMessage data) {
