@@ -15,12 +15,12 @@ Advantages of this system:
 ## Parts ## 
 
 ### CityStats ### 
-[Located here](CityStats).   
+[Located here](citystats-Device).   
 This is the micro-python code that is uploaded to the LoPy device.  
 It reads a range of measurements from the PySense module and sends the data if there has been a significant change (10%).        
 
 ### MapApp ### 
-[Located here](MapApp).   
+[Located here](citystats-MapApp).   
 This is the Java application used to view data from the devices.   
   
 The main views of the application are:   
@@ -29,7 +29,7 @@ The main views of the application are:
 
   
 ### DataServer ###
-[Located here](DataServer/Java).   
+[Located here](citystats-DataServer).   
 This is the Java code that stores all received data onto a SQL server. 
   
 The database is structured as below: 
