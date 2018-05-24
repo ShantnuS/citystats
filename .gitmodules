@@ -1,0 +1,3 @@
+[submodule "citystats-Device"]
+	path = citystats-Device
+	url = https://github.com/ShantnuS/citystats-Device.git
