@@ -4,3 +4,6 @@
 [submodule "citystats-MapApp"]
 	path = citystats-MapApp
 	url = https://github.com/ShantnuS/citystats-MapApp.git
+[submodule "citystats-DataServer"]
+	path = citystats-DataServer
+	url = https://github.com/ShantnuS/citystats-DataServer.git
